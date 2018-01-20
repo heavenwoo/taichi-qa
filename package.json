@@ -1,0 +1,17 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.17.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production"
+    },
+    "dependencies": {
+        "semantic-ui": "^2.2.13",
+        "semantic-ui-icon": "^2.2.12"
+    }
+}

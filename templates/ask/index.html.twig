@@ -1,0 +1,52 @@
+{% extends "ask/layout.html.twig" %}
+
+{% set actived = 'index' %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="ui vertical stripe">
+        <div class="count">
+            {{ questions.getTotalItemCount }}
+        </div>
+
+        <div class="ui grid">
+            <div class="four wide column">
+                {% for tag in tags %}
+                    {{ tag.name }}<br />
+                {% endfor %}
+            </div>
+            <div class="twelve wide column">
+
+                <div class="ui container">
+                    <div class="ui relaxed divided items">
+                        {% for question in questions %}
+                        <div class="item">
+                            <div class="ui small image">
+                                {{ question.answers|length }}
+                                {% if question.isSolved %}Solved{% else %}Answers{% endif %}
+                            </div>
+                            <div class="content">
+                                <a class="header">{{ question.subject }}</a>
+                                <div class="meta">
+                                    <a>Date</a>
+                                    <a>Category</a>
+                                </div>
+                                <div class="description">
+                                    A description which may flow for several lines and give context to the content.
+                                </div>
+                                <div class="extra">
+                                    <img src="{{ asset('logo.png') }}" class="ui circular avatar image"> Username
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# display navigation #}
+    <div class="ui centered container">
+        {{ knp_pagination_render(questions) }}
+    </div>
+{% endblock %}
