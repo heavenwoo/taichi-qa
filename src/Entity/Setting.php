@@ -14,6 +14,7 @@ class Setting
 {
     /**
      * @var integer
+     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,12 +23,14 @@ class Setting
 
     /**
      * @var string
+     *
      * @ORM\Column(name="name", type="text", length=15)
      */
     protected $name;
 
     /**
      * @var string
+     *
      * @ORM\Column(name="value", type="text", length=50)
      */
     protected $value;

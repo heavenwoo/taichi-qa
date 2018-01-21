@@ -16,30 +16,35 @@ class User extends Entity implements UserInterface, \Serializable
 {
     /**
      * @var string
+     *
      * @ORM\Column(type="string", unique=true)
      */
     protected $username;
 
     /**
      * @var string
+     *
      * @ORM\Column(type="text")
      */
     protected $password;
 
     /**
      * @var string
+     *
      * @ORM\Column(type="string", unique=true)
      */
     protected $email;
 
     /**
      * @var boolean
+     *
      * @ORM\Column(type="boolean")
      */
     protected $enabled;
 
     /**
      * @var Role
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Role")
      */
     protected $role;

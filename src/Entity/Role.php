@@ -23,12 +23,14 @@ class Role
 
     /**
      * @var array
+     *
      * @ORM\Column(name="roles", type="array")
      */
     protected $roles = [];
 
     /**
      * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     protected $description;

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class QuestionRepository extends ServiceEntityRepository
@@ -13,9 +14,12 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    public function findLatestQuery(int $page = 1)
+    /**
+     * @return Query
+     */
+    public function findLatestQuery(): Query
     {
-        $query = $this->getEntityManager()
+        return $this->getEntityManager()
             ->createQuery('
                 SELECT q, u, a, t
                 FROM App:Question q
@@ -25,21 +29,35 @@ class QuestionRepository extends ServiceEntityRepository
                 WHERE q.createdAt <= :now
                 ORDER BY q.createdAt DESC
             ')
-            ->setParameter('now', new \DateTime())
-        ;
+            ->setParameter('now', new \DateTime());
+    }
 
-        return $query;
-    }
-    /*
-    public function findBySomething($value)
+    /**
+     * @return Query
+     */
+    public function getListQuery(): Query
     {
-        return $this->createQueryBuilder('q')
-            ->where('q.something = :value')->setParameter('value', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT q, u, a, t
+                FROM App:Question q
+                JOIN q.user u
+                LEFT JOIN q.answers a
+                LEFT JOIN q.tags t
+                ORDER BY q.createdAt DESC
+            ');
     }
-    */
+
+    /**
+     * public function findBySomething($value)
+     * {
+     * return $this->createQueryBuilder('q')
+     * ->where('q.something = :value')->setParameter('value', $value)
+     * ->orderBy('q.id', 'ASC')
+     * ->setMaxResults(10)
+     * ->getQuery()
+     * ->getResult()
+     * ;
+     * }
+     */
 }

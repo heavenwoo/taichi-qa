@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\{
+    ArrayCollection, Collection
+};
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="posts")
+ * Post
  *
+ * @ORM\Table(name="posts")
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post extends Entity
@@ -43,6 +45,8 @@ class Post extends Entity
     protected $comments;
 
     /**
+     * @var User $user
+     *
      * @ORM\ManyToOne(targetEntity="User")
      */
     protected $user;

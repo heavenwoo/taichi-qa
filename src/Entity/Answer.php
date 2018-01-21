@@ -18,22 +18,28 @@ class Answer extends Entity
 {
     /**
      * @var string
+     *
      * @ORM\Column(name="content", type="text")
      */
     protected $content;
 
     /**
      * @var boolean
+     *
      * @ORM\Column(name="best", type="boolean")
      */
     protected $best;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="User")
      */
     protected $user;
 
     /**
+     * @var Question
+     *
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="answers")
      * @ORM\JoinColumn(nullable=false)
      */

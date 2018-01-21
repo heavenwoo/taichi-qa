@@ -5,48 +5,52 @@
 {% block content %}
     {{ parent() }}
     <div class="ui vertical stripe">
-        <div class="count">
-            {{ questions.getTotalItemCount }}
-        </div>
-
         <div class="ui grid">
-            <div class="four wide column">
-                {% for tag in tags %}
-                    {{ tag.name }}<br />
-                {% endfor %}
-            </div>
             <div class="twelve wide column">
-
                 <div class="ui container">
+                    <div class="ui tabular orange menu">
+                        <a class="active item">Hottest</a>
+                        <a class="item">Newest</a>
+                    </div>
                     <div class="ui relaxed divided items">
                         {% for question in questions %}
-                        <div class="item">
-                            <div class="ui small image">
-                                {{ question.answers|length }}
-                                {% if question.isSolved %}Solved{% else %}Answers{% endif %}
+                            <div class="item">
+                                <div class="ui segment">
+                                    <span class="item">{{ question.answers|length }}</span>
+                                    <span class="item"> {% if question.isSolved %}Solved{% else %}Answers{% endif %}</span>
+                                </div>
+                                <div class="ui segment">
+                                    <span class="item">{{ question.views }}</span>
+                                    <span class="item">Views</span>
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{ question.subject }}</a>
+                                    <div class="meta">
+                                        {{ question.user.username }}
+                                        asked on
+                                        <time datetime="{{ question.createdAt | date('c') }}" class="date">
+                                            {{ question.createdAt | ago }}
+                                        </time>
+                                    </div>
+                                    <div class="extra">
+                                        {% for tag in question.tags %}
+                                            <a class="item" href="">{{ tag.name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="content">
-                                <a class="header">{{ question.subject }}</a>
-                                <div class="meta">
-                                    <a>Date</a>
-                                    <a>Category</a>
-                                </div>
-                                <div class="description">
-                                    A description which may flow for several lines and give context to the content.
-                                </div>
-                                <div class="extra">
-                                    <img src="{{ asset('logo.png') }}" class="ui circular avatar image"> Username
-                                </div>
-                            </div>
-                        </div>
                         {% endfor %}
+                    </div>
+                    {# display navigation #}
+                    <div class="ui center container menu">
+                        {{ knp_pagination_render(questions) }}
                     </div>
                 </div>
             </div>
+            <div class="four wide column">
+                {% include 'ask/sidebar.html.twig' %}
+            </div>
         </div>
     </div>
-    {# display navigation #}
-    <div class="ui centered container">
-        {{ knp_pagination_render(questions) }}
-    </div>
+
 {% endblock %}

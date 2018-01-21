@@ -10,15 +10,17 @@ namespace App\DataFixtures;
 
 ini_set('memory_limit', -1);
 
-use App\Entity\Answer;
-use App\Entity\Category;
-use App\Entity\Comment;
-use App\Entity\Post;
-use App\Entity\Question;
-use App\Entity\Role;
-use App\Entity\Setting;
-use App\Entity\Tag;
-use App\Entity\User;
+use App\Entity\{
+    Answer,
+    Comment,
+    Category,
+    Post,
+    Question,
+    Role,
+    Setting,
+    Tag,
+    User
+};
 use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -45,13 +47,13 @@ class AskFixtures extends Fixture
     private $faker;
 
     private $passwordEncoder;
-    
+
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->faker = Factory::create();
         $this->passwordEncoder = $passwordEncoder;
     }
-    
+
     public function load(ObjectManager $manager)
     {
         //$this->loadCategory($manager);
@@ -62,7 +64,7 @@ class AskFixtures extends Fixture
         $this->loadQuestion($manager);
         $this->loadPosts($manager);
     }
-    
+
     public function loadCategory(ObjectManager $manager)
     {
         $name = [];
@@ -71,7 +73,7 @@ class AskFixtures extends Fixture
             $category = new Category();
 
             do {
-                $categoryName= $this->faker->citySuffix;
+                $categoryName = $this->faker->citySuffix;
             } while (in_array($categoryName, $name));
 
             $name[$i] = $categoryName;
@@ -132,7 +134,7 @@ class AskFixtures extends Fixture
         $roleArrays = $this->getRoles();
 
         foreach ($roleArrays as $roleArray) {
-            $role= new Role();
+            $role = new Role();
             $role->setRoles([$roleArray[0]]);
             $role->setDescription($roleArray[1]);
             $this->addReference($roleArray[0], $role);
@@ -267,7 +269,9 @@ class AskFixtures extends Fixture
         shuffle($tagNames);
         $selectedTags = array_slice($tagNames, 0, mt_rand(2, 5));
 
-        return array_map(function ($tagName) { return $this->getReference('tag-'.$tagName); }, $selectedTags);
+        return array_map(function ($tagName) {
+            return $this->getReference('tag-' . $tagName);
+        }, $selectedTags);
     }
 
     private function getSettings()
@@ -275,7 +279,7 @@ class AskFixtures extends Fixture
         return [
             [
                 'name' => 'sitename',
-                'value' => 'Taichi Ask'
+                'value' => 'Taichi Question Answer System'
             ],
             [
                 'name' => 'siteurl',
@@ -284,6 +288,14 @@ class AskFixtures extends Fixture
             [
                 'name' => 'site_admin_email',
                 'value' => 'heavenwoo@live.com'
+            ],
+            [
+                'name' => 'index_question_nums',
+                'value' => 10
+            ],
+            [
+                'name' => 'index_tag_nums',
+                'value' => 10
             ]
         ];
     }

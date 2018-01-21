@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\{
+    ArrayCollection, Collection
+};
 
 /**
  * Question
@@ -16,12 +17,14 @@ class Question extends Entity
 {
     /**
      * @var string
+     *
      * @ORM\Column(name="subject", type="string")
      */
     protected $subject;
 
     /**
      * @var string
+     *
      * @ORM\Column(name="content", type="text")
      */
     protected $content;
@@ -41,6 +44,8 @@ class Question extends Entity
     protected $solved;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="User")
      */
     protected $user;

@@ -10,11 +10,11 @@
         <div class="right item">
             <div class="ui input"><input type="text" placeholder="Search..."></div>
             {% if app.user and is_granted('ROLE_ADMIN') %}
-            <div class="item">
-                <a class="ui button" href="{{ path('sonata_admin_dashboard') }}">
-                    <i class="lock icon"></i> {{ 'menu.admin'|trans }}
-                </a>
-            </div>
+                <div class="item">
+                    <a class="ui button" href="{{ path('sonata_admin_dashboard') }}">
+                        <i class="lock icon"></i> {{ 'menu.admin'|trans }}
+                    </a>
+                </div>
             {% endif %}
         </div>
     </div>

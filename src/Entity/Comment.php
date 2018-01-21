@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Comment
+ *
  * @ORM\Table(name="comments")
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
@@ -18,24 +20,32 @@ class Comment extends Entity
     protected $content;
 
     /**
+     * @var Question
+     *
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="comments")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $question;
 
     /**
+     * @var Answer
+     *
      * @ORM\ManyToOne(targetEntity="Answer", inversedBy="comments")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $answer;
 
     /**
+     * @var Post
+     *
      * @ORM\ManyToOne(targetEntity="Post")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $post;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="User")
      */
     protected $user;

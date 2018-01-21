@@ -2,13 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\QuestionRepository;
-use App\Repository\TagRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use App\Entity\Setting;
+use App\Repository\{
+    QuestionRepository,
+    TagRepository
+};
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
+    Route,
+    Cache,
+    Template
+};
+use Symfony\Component\HttpFoundation\{
+    Request,
+    Response
+};
 
 /**
  * Class AskController
@@ -20,27 +27,31 @@ class AskController extends Controller
 {
     /**
      * @Route("/", name="ask_index", options={"sitemap"=true})
+     * @Template()
      *
      * @param QuestionRepository $questionRepository
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request, QuestionRepository $questionRepository, TagRepository $tagRepository): Response
+    public function index(Request $request, QuestionRepository $questionRepository, TagRepository $tagRepository): array
     {
+        $settings = $this->getSettings();
+
         $paginator = $this->get('knp_paginator');
 
         $questions = $paginator->paginate(
             $questionRepository->findLatestQuery(),
             $request->query->getInt('page', 1),
-            10
+            $settings['index_question_nums']
         );
 
-        $tags = $tagRepository->findBy([], null, 10);
+        $tags = $tagRepository->findBy([], null, $settings['index_tag_nums']);
 
-        return $this->render("ask/index.html.twig", [
+        return [
             'questions' => $questions,
             'tags' => $tags,
-        ]);
+            'setting' => $settings,
+        ];
     }
 
     /**

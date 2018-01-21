@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag implements \JsonSerializable
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -21,15 +24,29 @@ class Tag implements \JsonSerializable
 
     /**
      * @var string
+     *
      * @ORM\Column(type="string", length=15)
      */
     protected $name;
 
     /**
      * @var string
+     *
      * @ORM\Column(type="text")
      */
     protected $description;
+
+    /**
+     * @var Question[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Question")
+     */
+    protected $questions;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
 
     /**
      * @return integer
