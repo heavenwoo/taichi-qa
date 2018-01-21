@@ -26,7 +26,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AskFixtures extends Fixture
+class Fixtures extends Fixture
 {
     const CATEGORY_NUMS = 10;
 
@@ -225,6 +225,8 @@ class AskFixtures extends Fixture
 
             $manager->persist($answer);
         }
+
+        $question->setAnswerNums($answerNums);
     }
 
     private function loadPosts(ObjectManager $manager)

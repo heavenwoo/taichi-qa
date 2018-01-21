@@ -1,4 +1,4 @@
-{% extends "ask/layout.html.twig" %}
+{% extends "global/layout.html.twig" %}
 
 {% set actived = 'index' %}
 
@@ -8,32 +8,34 @@
         <div class="ui grid">
             <div class="twelve wide column">
                 <div class="ui container">
-                    <div class="ui tabular orange menu">
-                        <a class="active item">Hottest</a>
-                        <a class="item">Newest</a>
+                    <div class="ui tabular menu">
+                        <a class="{% if sort == 'hottest' %}active {% endif %}item"
+                           href="{{ path('post_index') }}?sort=hottest">Hottest</a>
+                        <a class="{% if sort == 'newest' or sort == '' %}active {% endif %}item"
+                           href="{{ path('post_index') }}?sort=newest">Newest</a>
                     </div>
                     <div class="ui relaxed divided items">
-                        {% for question in questions %}
+                        {% for post in posts %}
                             <div class="item">
                                 <div class="ui segment">
-                                    <span class="item">{{ question.answers|length }}</span>
-                                    <span class="item"> {% if question.isSolved %}Solved{% else %}Answers{% endif %}</span>
+                                    <span class="item">{{ post.answers|length }}</span>
+                                    <span class="item"> {% if post.isSolved %}Solved{% else %}Answers{% endif %}</span>
                                 </div>
                                 <div class="ui segment">
-                                    <span class="item">{{ question.views }}</span>
+                                    <span class="item">{{ post.views }}</span>
                                     <span class="item">Views</span>
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{ question.subject }}</a>
+                                    <a class="header">{{ post.subject }}</a>
                                     <div class="meta">
-                                        {{ question.user.username }}
+                                        {{ post.user.username }}
                                         asked on
-                                        <time datetime="{{ question.createdAt | date('c') }}" class="date">
-                                            {{ question.createdAt | ago }}
+                                        <time datetime="{{ post.createdAt | date('c') }}" class="date">
+                                            {{ post.createdAt | ago }}
                                         </time>
                                     </div>
                                     <div class="extra">
-                                        {% for tag in question.tags %}
+                                        {% for tag in post.tags %}
                                             <a class="item" href="">{{ tag.name }}</a>
                                         {% endfor %}
                                     </div>
@@ -43,12 +45,12 @@
                     </div>
                     {# display navigation #}
                     <div class="ui center container menu">
-                        {{ knp_pagination_render(questions) }}
+                        {{ knp_pagination_render(posts) }}
                     </div>
                 </div>
             </div>
             <div class="four wide column">
-                {% include 'ask/sidebar.html.twig' %}
+                {% include 'global/sidebar.html.twig' %}
             </div>
         </div>
     </div>

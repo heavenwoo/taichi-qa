@@ -1,0 +1,58 @@
+{% extends "global/layout.html.twig" %}
+
+{% set actived = 'index' %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="ui vertical stripe">
+        <div class="ui grid">
+            <div class="twelve wide column">
+                <div class="ui container">
+                    <div class="ui tabular menu">
+                        <a class="{% if sort == 'hottest' %}active {% endif %}item"
+                           href="{{ path('question_index') }}?sort=hottest">Hottest</a>
+                        <a class="{% if sort == 'newest' or sort == '' %}active {% endif %}item"
+                           href="{{ path('question_index') }}?sort=newest">Newest</a>
+                    </div>
+                    <div class="ui relaxed divided items">
+                        {% for question in questions %}
+                            <div class="item">
+                                <div class="ui segment">
+                                    <span class="item">{{ question.answers|length }}</span>
+                                    <span class="item"> {% if question.isSolved %}Solved{% else %}Answers{% endif %}</span>
+                                </div>
+                                <div class="ui segment">
+                                    <span class="item">{{ question.views }}</span>
+                                    <span class="item">Views</span>
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{ question.subject }}</a>
+                                    <div class="meta">
+                                        {{ question.user.username }}
+                                        asked on
+                                        <time datetime="{{ question.createdAt | date('c') }}" class="date">
+                                            {{ question.createdAt | ago }}
+                                        </time>
+                                    </div>
+                                    <div class="extra">
+                                        {% for tag in question.tags %}
+                                            <a class="item" href="">{{ tag.name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {# display navigation #}
+                    <div class="ui center container menu">
+                        {{ knp_pagination_render(questions) }}
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                {% include 'global/sidebar.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

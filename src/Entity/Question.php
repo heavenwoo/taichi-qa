@@ -37,6 +37,13 @@ class Question extends Entity
     protected $views;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="answer_nums", type="integer")
+     */
+    protected $answerNums;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="solved", type="boolean")
@@ -125,6 +132,22 @@ class Question extends Entity
     public function setViews(int $views): void
     {
         $this->views = $views;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAnswerNums(): int
+    {
+        return $this->answerNums;
+    }
+
+    /**
+     * @param int $answerNums
+     */
+    public function setAnswerNums(int $answerNums): void
+    {
+        $this->answerNums = $answerNums;
     }
 
     /**

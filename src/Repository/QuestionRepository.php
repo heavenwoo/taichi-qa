@@ -32,6 +32,21 @@ class QuestionRepository extends ServiceEntityRepository
             ->setParameter('now', new \DateTime());
     }
 
+    public function findHottestQuery(): Query
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT q, u, a, t
+                FROM App:Question q
+                JOIN q.user u
+                LEFT JOIN q.answers a
+                LEFT JOIN q.tags t
+                WHERE q.createdAt <= :now
+                ORDER BY q.views DESC, q.createdAt DESC
+            ')
+            ->setParameter('now', new \DateTime());
+    }
+
     /**
      * @return Query
      */
