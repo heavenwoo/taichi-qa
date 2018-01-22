@@ -38,7 +38,7 @@ class Comment extends Entity
     /**
      * @var Post
      *
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $post;

@@ -1,0 +1,35 @@
+{% extends "global/layout.html.twig" %}
+
+{% set actived = 'question_show' %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="ui vertical stripe">
+        <div class="ui grid">
+            <div class="twelve wide column">
+                <div class="ui container">
+                    <div class="ui relaxed divided items">
+                        {{ question.subject }}
+                        {{ question.content }}
+                        {% for comment in question.comments %}
+                            <div class="item">
+                                <div class="content">
+                                    {{ comment.content }}
+                                    <div class="extra">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for tag in question.tags %}
+                            <a class="item" href="">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                {% include 'global/sidebar.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

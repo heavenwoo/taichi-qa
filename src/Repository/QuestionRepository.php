@@ -63,6 +63,22 @@ class QuestionRepository extends ServiceEntityRepository
             ');
     }
 
+    public function getQuestionById(int $id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT q, u, c, t
+                FROM App:Question q 
+                JOIN q.user u 
+                LEFT JOIN q.comments c
+                LEFT JOIN q.tags t 
+                WHERE q.id = :id
+                ORDER BY c.createdAt DESC
+            ')
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
+
     /**
      * public function findBySomething($value)
      * {

@@ -26,7 +26,7 @@
                                     <span class="item">Views</span>
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{ question.subject }}</a>
+                                    <a class="header" href="{{ path('question_show', {id: question.id}) }}">{{ question.subject }}</a>
                                     <div class="meta">
                                         {{ question.user.username }}
                                         asked on

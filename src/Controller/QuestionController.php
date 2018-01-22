@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Setting;
+use App\Entity\Question;
 use App\Repository\{
-    QuestionRepository,
-    TagRepository
+    AnswerRepository, QuestionRepository, TagRepository
 };
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route,
     Cache,
+    Method,
     Template
 };
 use Symfony\Component\HttpFoundation\{
@@ -26,77 +26,84 @@ use Symfony\Component\HttpFoundation\{
 class QuestionController extends Controller
 {
     /**
-     * @Route("/", name="question_index", options={"sitemap"=true})
-     * @Template()
-     *
-     * @param QuestionRepository $questionRepository
-     * @param Request $request
-     * @return Response
-     */
-    public function index(Request $request, QuestionRepository $questionRepository, TagRepository $tagRepository): array
-    {
-        $settings = $this->getSettings();
-
-        $sort = $request->query->get('sort', null);
-        $page = $request->query->getInt('page', 1);
-
-        if ($sort == 'hottest') {
-            $query = $questionRepository->findHottestQuery();
-        } elseif ($sort == 'newest' || $sort == '') {
-            $query = $questionRepository->findLatestQuery();
-        }
-
-        $paginator = $this->get('knp_paginator');
-
-        $questions = $paginator->paginate(
-            $query,
-            $page,
-            $settings['index_question_nums']
-        );
-
-        $tags = $tagRepository->findBy([], null, $settings['index_tag_nums']);
-
-        return [
-            'questions' => $questions,
-            'tags' => $tags,
-            'setting' => $settings,
-            'sort' => $sort,
-        ];
-    }
-
-    /**
-     * Route("/hottest", name="ask_hottest_index")
-     *
-     * @param Request $request
-     * @param QuestionRepository $questionRepository
-     * @return Response
-     */
-    public function hottest(Request $request, QuestionRepository $questionRepository, TagRepository $tagRepository): Response
-    {
-        $settings = $this->getSettings();
-
-        $paginator = $this->get('knp_paginator');
-
-        $questions = $paginator->paginate(
-            $questionRepository->findHottestQuery(),
-            $request->query->getInt('page', 1),
-            $settings['index_question_nums']
-        );
-
-        return $this->render('ask/index.html.twig', [
-            'questions' => $questions,
-            'tags' => $tagRepository->findBy([], null, $settings['index_tag_nums']),
-            'setting' => $settings,
-        ]);
-    }
-
-    /**
-     * @Route("/list", name="ask_list")
+     * @Route("/list", name="question_list")
+     * @Method("GET")
      *
      * @param QuestionRepository $questionRepository
      * @param Request $request
      */
     public function list(QuestionRepository $questionRepository, Request $request)
+    {
+        //
+    }
+
+    /**
+     * @Route("/question/{id}", name="question_show", requirements={"id": "\d+"})
+     * @Method("GET")
+     * @Template()
+     *
+     * @param int $id
+     * @param QuestionRepository $questionRepository
+     * @param AnswerRepository $answerRepository
+     * @param TagRepository $tagRepository
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function show(int $id, QuestionRepository $questionRepository, AnswerRepository $answerRepository, TagRepository $tagRepository, Request $request)
+    {
+        $settings = $this->getSettings();
+
+        $question = $questionRepository->getQuestionById($id);
+
+        if ($question == null) {
+            return $this->redirectToRoute('question_index');
+        }
+
+        $paginator = $this->get('knp_paginator');
+
+        $answers = $paginator->paginate(
+            $answerRepository->findAllAnswersQueryByQuestion($question),
+            $request->query->getInt('page', 1),
+            $settings['index_question_nums']
+        );
+
+        return [
+            'question' => $question,
+            'answers' => $answers,
+            'setting' => $settings,
+            'tags' => $tagRepository->findBy([], null, $settings['index_tag_nums']),
+        ];
+    }
+
+    /**
+     * @Route("/question/create", name="question_create")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * @Route("/question/edit/{id}", name="question_edit", requirements={"id": "\d+"})
+     * @Method({"GET", "POST"})
+     * @Template()
+     *
+     * @param Question $question
+     */
+    public function edit(Question $question)
+    {
+        //
+    }
+
+    /**
+     * @Route("/question/edit/{id}", name="question_edit", requirements={"id": "\d+"})
+     * @Method("POST")
+     *
+     * @param Question $question
+     */
+    public function delete(Question $question)
     {
         //
     }
