@@ -1,6 +1,7 @@
 //override Bootstrap 4.0
 $primary: #00796b;
 $secondary: #009688;
+$success: #45A163; //#5fba7d
 $body-bg: #f8f9fa;
 
 @import '~bootstrap/scss/bootstrap';
@@ -66,7 +67,7 @@ $body-bg: #f8f9fa;
 .narrow .status {
   display: inline-block;
   margin: 0 3px 0 0;
-  min-width: 44px;
+  min-width: 3rem;
   height: auto;
   font-size: 11px;
   padding: 6px
@@ -80,8 +81,8 @@ $body-bg: #f8f9fa;
 
 .narrow .votes {
   display: inline-block;
-  height: 38px;
-  min-width: 38px;
+  height: 3em;
+  min-width: 3rem;
   margin: 0 3px 0 0;
   font-size: .8em;
   color: #848d95;
@@ -99,12 +100,22 @@ $body-bg: #f8f9fa;
 
 .narrow .views {
   display: inline-block;
-  height: 38px;
-  min-width: 40px;
+  height: 3em;
+  min-width: 3rem;
   margin: 0 7px 0 0;
   font-size: 11px;
   color: #848d95;
   padding: 5px 5px 6px
+}
+
+.narrow .views strong {
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
+.narrow .votes, .narrow .status, .narrow .views {
+  padding: 8px 5px;
+  line-height: 1
 }
 
 .narrow .summary {
@@ -125,7 +136,7 @@ $body-bg: #f8f9fa;
 }
 
 .narrow .mini-counts {
-  font-size: 17px;
+  font-size: 1.2rem;
   font-weight: 300;
   color: #6a737c;
   margin-bottom: 4px
@@ -150,11 +161,11 @@ $body-bg: #f8f9fa;
 }
 
 .status.answered {
-  border-color: rgba(69, 161, 99, 0.5)
+  border-color: $success;
 }
 
 .status.answered, .status.answered .mini-counts, .status.answered strong {
-  color: #45A163
+  color: $success
 }
 
 .status.answered-accepted, .status.answered-accepted .mini-counts, .status.answered-accepted .minicounts span {
@@ -170,7 +181,7 @@ $body-bg: #f8f9fa;
 }
 
 .answered, .answered .mini-counts, .answered strong {
-  color: #45A163
+  color: $success
 }
 
 .answered strong {
@@ -179,15 +190,15 @@ $body-bg: #f8f9fa;
 }
 
 .answered-accepted {
-  background-color: #5fba7d
+  background-color: lighten($success, 6%)
 }
 
 .answered-accepted, .answered-accepted .mini-counts, .answered-accepted .minicounts span {
-  color: #FFF
+  color: $white
 }
 
 .status.answered, .status.answered .mini-counts, .status.answered strong {
-  color: #45A163
+  color: $success
 }
 
 .status.answered-accepted, .status.answered-accepted .mini-counts, .status.answered-accepted .minicounts span {

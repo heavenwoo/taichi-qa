@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heaven
- * Date: 1/16/2018
- * Time: 20:52
- */
 
-namespace App\DataFixtures;
+namespace Taichi\DataFixtures;
 
 ini_set('memory_limit', -1);
 
-use App\Entity\{
+use Taichi\Entity\{
     Answer,
     Comment,
     Category,
@@ -188,7 +182,6 @@ class Fixtures extends Fixture
             $question->setSubject(implode(' ', array_map('ucfirst', $this->faker->words(mt_rand(3, 5)))));
             $question->setContent($this->faker->paragraph(mt_rand(6, 10)));
             $question->setViews(mt_rand(0, 1000));
-            $question->setSolved((bool)mt_rand(0, 1));
             $question->resetVote();
             $question->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
             $question->setUpdatedAt($question->getCreatedAt());
@@ -208,26 +201,31 @@ class Fixtures extends Fixture
 
     private function addAnswers(ObjectManager $manager, Question $question)
     {
-        $answerNums = mt_rand(1, self::ANSWER_NUMS);
-        $isBestId = $question->isSolved() ? mt_rand(1, $answerNums) : 0;
-
-        foreach (range(1, $answerNums) as $i) {
-            $answer = new Answer();
-
-            $answer->setContent($this->faker->paragraph(mt_rand(1, 3)));
-            $answer->setBest($isBestId == $i);
-            $answer->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
-            $answer->setCreatedAt($this->faker->dateTimeBetween($question->getCreatedAt(), 'now'));
-            $answer->setUpdatedAt($answer->getCreatedAt());
-
-            $this->addComments($manager, $answer);
-
-            $question->addAnswer($answer);
-
-            $manager->persist($answer);
-        }
-
+        $answerNums = mt_rand(0, self::ANSWER_NUMS);
         $question->setAnswerNums($answerNums);
+
+        if ($answerNums > 0) {
+            $question->setSolved((bool)mt_rand(0, 1));
+            $isBestId = $question->isSolved() ? mt_rand(1, $answerNums) : 0;
+
+            foreach (range(1, $answerNums) as $i) {
+                $answer = new Answer();
+
+                $answer->setContent($this->faker->paragraph(mt_rand(1, 3)));
+                $answer->setBest($isBestId == $i);
+                $answer->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
+                $answer->setCreatedAt($this->faker->dateTimeBetween($question->getCreatedAt(), 'now'));
+                $answer->setUpdatedAt($answer->getCreatedAt());
+
+                $this->addComments($manager, $answer);
+
+                $question->addAnswer($answer);
+
+                $manager->persist($answer);
+            }
+        } else {
+            $question->setSolved(false);
+        }
     }
 
     private function loadPosts(ObjectManager $manager)

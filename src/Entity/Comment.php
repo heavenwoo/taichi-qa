@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Taichi\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table(name="comments")
- * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\Entity(repositoryClass="Taichi\Repository\CommentRepository")
  */
 class Comment extends Entity
 {

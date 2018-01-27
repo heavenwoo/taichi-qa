@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace Taichi\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;

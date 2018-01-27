@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Taichi\Repository;
 
-use App\Entity\Comment;
+use Taichi\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace Taichi\Form;
 
-use App\Entity\Tag;
+use Taichi\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

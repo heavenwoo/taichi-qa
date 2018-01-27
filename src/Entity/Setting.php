@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Taichi\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Setting
  *
  * @ORM\Table=(name="settings")
- * @ORM\Entity(repositoryClass="App\Repository\SettingRepository")
+ * @ORM\Entity(repositoryClass="Taichi\Repository\SettingRepository")
  */
 class Setting
 {

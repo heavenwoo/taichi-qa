@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace Taichi\Form;
 
-use App\Entity\Question;
+use Taichi\Entity\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

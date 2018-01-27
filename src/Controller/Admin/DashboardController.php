@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Taichi\Controller\Admin;
 
-use App\Controller\Controller;
+use Taichi\Controller\Controller;
 
 class DashboardController extends Controller
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace Taichi\Controller;
 
-use App\Entity\Setting;
+use Taichi\Entity\Setting;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 

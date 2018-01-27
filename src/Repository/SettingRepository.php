@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Taichi\Repository;
 
-use App\Entity\Setting;
+use Taichi\Entity\Setting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Taichi\Entity;
 
 use Doctrine\Common\Collections\{
     ArrayCollection, Collection
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Post
  *
  * @ORM\Table(name="posts")
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="Taichi\Repository\PostRepository")
  */
 class Post extends Entity
 {
@@ -32,7 +32,7 @@ class Post extends Entity
     /**
      * @var Tag[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Taichi\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="post_tags")
      */
     protected $tags;

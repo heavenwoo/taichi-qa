@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace Taichi\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\Comment;
+use Taichi\Entity\Comment;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Query;
 
@@ -12,7 +12,7 @@ use Doctrine\ORM\Query;
  * Answer
  *
  * @ORM\Table(name="answers")
- * @ORM\Entity(repositoryClass="App\Repository\AnswerRepository")
+ * @ORM\Entity(repositoryClass="Taichi\Repository\AnswerRepository")
  */
 class Answer extends Entity
 {

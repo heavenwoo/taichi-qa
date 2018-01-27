@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Taichi\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tag
  *
  * @ORM\Table(name="tags")
- * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
+ * @ORM\Entity(repositoryClass="Taichi\Repository\TagRepository")
  */
 class Tag implements \JsonSerializable
 {

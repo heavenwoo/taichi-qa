@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace Taichi\Controller;
 
-use App\Entity\Question;
-use App\Repository\{
+use Taichi\Entity\Question;
+use Taichi\Repository\{
     AnswerRepository, QuestionRepository, TagRepository
 };
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\{
  * Class QuestionController
  *
  * @Cache(maxage="1", public=true)
- * @package App\Controller
+ * @package Taichi\Controller
  */
 class QuestionController extends Controller
 {
@@ -64,14 +64,14 @@ class QuestionController extends Controller
         $answers = $paginator->paginate(
             $answerRepository->findAllAnswersQueryByQuestion($question),
             $request->query->getInt('page', 1),
-            $settings['index_question_nums']
+            10
         );
 
         return [
             'question' => $question,
             'answers' => $answers,
             'setting' => $settings,
-            'tags' => $tagRepository->findBy([], null, $settings['index_tag_nums']),
+            'tags' => $tagRepository->findBy([], null, 10),
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DependencyInjection;
+namespace Taichi\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

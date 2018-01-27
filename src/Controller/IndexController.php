@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heave
- * Date: 1/23/2018
- * Time: 00:19
- */
 
-namespace App\Controller;
+namespace Taichi\Controller;
 
-use App\Entity\Question;
-use App\Repository\{
+use Taichi\Entity\Question;
+use Taichi\Repository\{
     AnswerRepository, QuestionRepository, TagRepository
 };
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
@@ -29,22 +23,24 @@ class IndexController extends Controller
      * @Route("/", name="question_index", options={"sitemap"=true})
      * @Method("GET")
      *
-     * @param QuestionRepository $questionRepository
      * @param Request $request
+     * @param QuestionRepository $questionRepository
+     * @param TagRepository $tagRepository
      * @return Response
      */
     public function index(Request $request, QuestionRepository $questionRepository, TagRepository $tagRepository): Response
     {
         $settings = $this->getSettings();
-
-        //$this->getParameter('taichi_qa');
+        $index = $this->getParameter('index');
 
         $sort = $request->query->get('sort', null);
 
         if ($sort == 'hottest') {
             $query = $questionRepository->findHottestQuery();
-        } elseif ($sort == 'newest' || $sort == '') {
+        } elseif ($sort == 'latest' || $sort == '') {
             $query = $questionRepository->findLatestQuery();
+        } elseif ($sort == 'unanswered') {
+            $query = $questionRepository->findUnansweredQuery();
         }
 
         $paginator = $this->get('knp_paginator');
@@ -52,10 +48,10 @@ class IndexController extends Controller
         $questions = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            $settings['index_question_nums']
+            10
         );
 
-        $tags = $tagRepository->findBy([], null, $settings['index_tag_nums']);
+        $tags = $tagRepository->findBy([], null, $index['tag_nums']);
 
         return $this->render("question/index.html.twig", [
             'questions' => $questions,

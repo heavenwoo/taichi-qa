@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace Taichi\Repository;
 
-use App\Entity\Question;
+use Doctrine\ORM\QueryBuilder;
+use Taichi\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -15,36 +16,40 @@ class QuestionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Query
+     * @return QueryBuilder
      */
+    private function getQuestionQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q', 'u', 'a', 't')
+            ->join('q.user', 'u')
+            ->leftJoin('q.answers', 'a')
+            ->leftJoin('q.tags', 't')
+            ->where('q.createdAt <= :now')->setParameter('now', new \DateTime());
+    }
+
     public function findLatestQuery(): Query
     {
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT q, u, a, t
-                FROM App:Question q
-                JOIN q.user u
-                LEFT JOIN q.answers a
-                LEFT JOIN q.tags t
-                WHERE q.createdAt <= :now
-                ORDER BY q.createdAt DESC
-            ')
-            ->setParameter('now', new \DateTime());
+        return $this->getQuestionQueryBuilder()
+            ->orderBy('q.createdAt', 'DESC')
+            ->getQuery();
     }
 
     public function findHottestQuery(): Query
     {
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT q, u, a, t
-                FROM App:Question q
-                JOIN q.user u
-                LEFT JOIN q.answers a
-                LEFT JOIN q.tags t
-                WHERE q.createdAt <= :now
-                ORDER BY q.views DESC, q.createdAt DESC
-            ')
-            ->setParameter('now', new \DateTime());
+        return $this->getQuestionQueryBuilder()
+            ->orderBy('q.views', 'DESC')
+            ->addOrderBy('q.createdAt', 'DESC')
+            ->getQuery();
+    }
+
+    public function findUnansweredQuery(): Query
+    {
+        return $this->getQuestionQueryBuilder()
+            ->andWhere('q.answerNums = 0')
+            ->orderBy('q.views', 'DESC')
+            ->addOrderBy('q.createdAt', 'DESC')
+            ->getQuery();
     }
 
     /**
@@ -52,31 +57,23 @@ class QuestionRepository extends ServiceEntityRepository
      */
     public function getListQuery(): Query
     {
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT q, u, a, t
-                FROM App:Question q
-                JOIN q.user u
-                LEFT JOIN q.answers a
-                LEFT JOIN q.tags t
-                ORDER BY q.createdAt DESC
-            ');
+        return $this->getQuestionQueryBuilder()
+            ->getQuery();
     }
 
     public function getQuestionById(int $id)
     {
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT q, u, c, t
-                FROM App:Question q 
-                JOIN q.user u 
-                LEFT JOIN q.comments c
-                LEFT JOIN q.tags t 
-                WHERE q.id = :id
-                ORDER BY c.createdAt DESC
-            ')
+        $query = $this->createQueryBuilder('q')
+            ->select('q', 'u', 'c', 't')
+            ->join('q.user', 'u')
+            ->leftJoin('q.comments', 'c')
+            ->leftJoin('q.tags', 't')
+            ->where('q.id = :id')
+            ->orderBy('c.createdAt', 'DESC')
             ->setParameter('id', $id)
-            ->getOneOrNullResult();
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
     }
 
     /**

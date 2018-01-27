@@ -2,6 +2,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    index:
+        question_nums: 10
+        tag_nums: 10
 
 services:
     # default configuration for services in *this* file
@@ -14,13 +17,13 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\:
+    Taichi\:
         resource: '../src/*'
         exclude: '../src/{Entity,Migrations,Tests}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
+    Taichi\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
