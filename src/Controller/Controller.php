@@ -16,6 +16,7 @@ class Controller extends BaseController
     {
         $settings = $this->getDoctrine()->getRepository(Setting::class)->findAll();
 
+        /* @var Setting $setting*/
         foreach ($settings as $setting) {
             $settingArray[$setting->getName()] = $setting->getValue();
         }

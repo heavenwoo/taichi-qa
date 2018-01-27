@@ -1,6 +1,12 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.17.0"
+        "@symfony/webpack-encore": "^0.17.1",
+        "autoprefixer": "^7.2.5",
+        "bootstrap-sass": "^3.3.7",
+        "jquery": "^3.3.1",
+        "node-sass": "^4.7.2",
+        "postcss-loader": "^2.0.10",
+        "sass-loader": "^6.0.6"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -11,6 +17,11 @@
         "build": "encore production"
     },
     "dependencies": {
+        "bootflat": "^2.0.4",
+        "bootstrap": "^4.0.0",
+        "font-awesome": "^4.7.0",
+        "popper": "^1.0.1",
+        "popper.js": "^1.12.9",
         "semantic-ui": "^2.2.13",
         "semantic-ui-icon": "^2.2.12"
     }

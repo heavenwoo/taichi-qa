@@ -1,3 +1,7 @@
-{% for tag in tags %}
-    {{ tag.name }}<br/>
-{% endfor %}
+<div class="card">
+    <div class="card-body">
+        {% for tag in tags %}
+            {{ tag.name }}<br/>
+        {% endfor %}
+    </div>
+</div>

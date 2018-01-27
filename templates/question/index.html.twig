@@ -3,56 +3,57 @@
 {% set actived = 'index' %}
 
 {% block content %}
-    {{ parent() }}
-    <div class="ui vertical stripe">
-        <div class="ui grid">
-            <div class="twelve wide column">
-                <div class="ui container">
-                    <div class="ui tabular menu">
-                        <a class="{% if sort == 'hottest' %}active {% endif %}item"
-                           href="{{ path('question_index') }}?sort=hottest">Hottest</a>
-                        <a class="{% if sort == 'newest' or sort == '' %}active {% endif %}item"
-                           href="{{ path('question_index') }}?sort=newest">Newest</a>
-                    </div>
-                    <div class="ui relaxed divided items">
-                        {% for question in questions %}
-                            <div class="item">
-                                <div class="ui segment">
-                                    <span class="item">{{ question.answers|length }}</span>
-                                    <span class="item"> {% if question.isSolved %}Solved{% else %}Answers{% endif %}</span>
-                                </div>
-                                <div class="ui segment">
-                                    <span class="item">{{ question.views }}</span>
-                                    <span class="item">Views</span>
-                                </div>
-                                <div class="content">
-                                    <a class="header" href="{{ path('question_show', {id: question.id}) }}">{{ question.subject }}</a>
-                                    <div class="meta">
-                                        {{ question.user.username }}
-                                        asked on
-                                        <time datetime="{{ question.createdAt | date('c') }}" class="date">
-                                            {{ question.createdAt | ago }}
-                                        </time>
-                                    </div>
-                                    <div class="extra">
-                                        {% for tag in question.tags %}
-                                            <a class="item" href="">{{ tag.name }}</a>
-                                        {% endfor %}
-                                    </div>
-                                </div>
+    <div class="card">
+        <div class="card-body">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link{% if sort == 'hottest' %} active{% endif %}"
+                       href="{{ path('question_index') }}?sort=hottest">Hottest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if sort == 'newest' or sort == '' %} active{% endif %}"
+                       href="{{ path('question_index') }}?sort=newest">Newest</a>
+                </li>
+            </ul>
+            {% for question in questions %}
+                <section class="question-summary narrow">
+                    <div class="cp">
+                        <div class="status{% if question.isSolved %} answered-accepted{% elseif question.answers != null %} answered{% else %} unanswered{% endif %}">
+                            <div class="mini-counts">
+                                <span>{{ question.answers|length }}</span>
                             </div>
-                        {% endfor %}
+                            <div>answers</div>
+                        </div>
+                        <div class="views">
+                            <div class="mini-counts">
+                                <span>{{ question.views }}</span>
+                            </div>
+                            <div>views</div>
+                        </div>
                     </div>
-                    {# display navigation #}
-                    <div class="ui center container menu">
-                        {{ knp_pagination_render(questions) }}
+                    <div class="summary">
+                        <h3>
+                            <a class="header"
+                               href="{{ path('question_show', {id: question.id}) }}">{{ question.subject }}</a>
+                        </h3>
+                        <div class="tags float-left">
+                            {% for tag in question.tags %}
+                                <a class="btn btn-sm btn-light" href="">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="started float-right">
+                            <a href="#">{{ question.user.username }}</a>
+                            <a href="#" class="started-link">asked on
+                                <time class="date"
+                                      datetime="{{ question.createdAt | date('c') }}">{{ question.createdAt | ago }}</time>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="four wide column">
-                {% include 'global/sidebar.html.twig' %}
-            </div>
+                </section>
+            {% endfor %}
         </div>
-    </div>
+        {# display navigation #}
+        {{ knp_pagination_render(questions) }}
 
+    </div>
 {% endblock %}

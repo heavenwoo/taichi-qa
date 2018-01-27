@@ -59,7 +59,7 @@ class Fixtures extends Fixture
         //$this->loadCategory($manager);
         $this->loadTag($manager);
         $this->loadSetting($manager);
-        $this->loadRole($manager);
+        //$this->loadRole($manager);
         $this->loadUser($manager);
         $this->loadQuestion($manager);
         $this->loadPosts($manager);
@@ -171,7 +171,7 @@ class Fixtures extends Fixture
         $user->setEmail($email ?: $this->faker->email);
         $user->setEnabled($enable ? true : (bool)mt_rand(0, 1));
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password ?: $this->faker->word));
-        $user->setRoles($supperAdmin ? $this->getReference('ROLE_SUPPER_ADMIN') : $this->getReference('ROLE_USER'));
+        $user->setRoles($supperAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER']);
         $user->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
         $user->setUpdatedAt($user->getCreatedAt());
 

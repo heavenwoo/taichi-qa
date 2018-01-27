@@ -45,9 +45,9 @@ class User extends Entity implements UserInterface, \Serializable
     /**
      * @var Role
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role")
+     * @ORM\Column(type="array")
      */
-    protected $role;
+    protected $roles = [];
 
     /**
      * @return string
@@ -114,19 +114,23 @@ class User extends Entity implements UserInterface, \Serializable
     }
 
     /**
-     * @return array
+     * Returns the roles or permissions granted to the user for security.
      */
-    public function getRoles(): Role
+    public function getRoles(): array
     {
-        return $this->role;
+        $roles = $this->roles;
+
+        // guarantees that a user always has at least one role for security
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
     }
 
-    /**
-     * @param Role $roles
-     */
-    public function setRoles(Role $role): void
+    public function setRoles(array $roles): void
     {
-        $this->role = $role;
+        $this->roles = $roles;
     }
 
     /**

@@ -51,6 +51,13 @@ class Question extends Entity
     protected $solved;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $votes;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -164,6 +171,21 @@ class Question extends Entity
     public function setSolved(bool $solved): void
     {
         $this->solved = $solved;
+    }
+
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    public function increateVote()
+    {
+        $this->votes++;
+    }
+
+    public function decreaseVote()
+    {
+        $this->votes--;
     }
 
     /**

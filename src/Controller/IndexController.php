@@ -37,6 +37,8 @@ class IndexController extends Controller
     {
         $settings = $this->getSettings();
 
+        //$this->getParameter('taichi_qa');
+
         $sort = $request->query->get('sort', null);
 
         if ($sort == 'hottest') {
