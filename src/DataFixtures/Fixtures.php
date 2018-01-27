@@ -189,6 +189,7 @@ class Fixtures extends Fixture
             $question->setContent($this->faker->paragraph(mt_rand(6, 10)));
             $question->setViews(mt_rand(0, 1000));
             $question->setSolved((bool)mt_rand(0, 1));
+            $question->resetVote();
             $question->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
             $question->setUpdatedAt($question->getCreatedAt());
             $question->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));

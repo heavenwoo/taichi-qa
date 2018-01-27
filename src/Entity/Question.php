@@ -178,6 +178,11 @@ class Question extends Entity
         return $this->votes;
     }
 
+    public function resetVote()
+    {
+        $this->votes = 0;
+    }
+
     public function increateVote()
     {
         $this->votes++;
