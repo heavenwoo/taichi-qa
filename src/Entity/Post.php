@@ -1,17 +1,18 @@
 <?php
 
-namespace Taichi\Entity;
+namespace Vega\Entity;
 
 use Doctrine\Common\Collections\{
     ArrayCollection, Collection
 };
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
  *
  * @ORM\Table(name="posts")
- * @ORM\Entity(repositoryClass="Taichi\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="Vega\Repository\PostRepository")
  */
 class Post extends Entity
 {
@@ -19,6 +20,7 @@ class Post extends Entity
      * @var string
      *
      * @ORM\Column(name="subject", type="text")
+     * @Assert\NotBlank
      */
     protected $subject;
 
@@ -26,13 +28,22 @@ class Post extends Entity
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=10, minMessage="the content is too short")
      */
     protected $content;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $views;
+
+    /**
      * @var Tag[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Taichi\Entity\Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Vega\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="post_tags")
      */
     protected $tags;
@@ -41,6 +52,7 @@ class Post extends Entity
      * @var Comment[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OrderBy({"publishedAt": "DESC"})
      */
     protected $comments;
 
@@ -87,6 +99,22 @@ class Post extends Entity
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return int
+     */
+    public function getViews(): int
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param int $views
+     */
+    public function setViews(int $views): void
+    {
+        $this->views = $views;
     }
 
     /**

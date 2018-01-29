@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi\Entity;
+namespace Vega\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi\DependencyInjection;
+namespace Vega\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -15,6 +15,6 @@ class AppExtension extends Extension
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')
         );
-        $loader->load('taichi_qa.xml');
+        $loader->load('Vega_qa.xml');
     }
 }

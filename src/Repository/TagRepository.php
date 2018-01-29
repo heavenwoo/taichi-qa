@@ -1,8 +1,8 @@
 <?php
 
-namespace Taichi\Repository;
+namespace Vega\Repository;
 
-use Taichi\Entity\Tag;
+use Vega\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\RegistryInterface;

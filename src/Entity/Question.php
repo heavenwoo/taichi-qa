@@ -1,17 +1,18 @@
 <?php
 
-namespace Taichi\Entity;
+namespace Vega\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\{
     ArrayCollection, Collection
 };
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
  *
  * @ORM\Table(name="questions")
- * @ORM\Entity(repositoryClass="Taichi\Repository\QuestionRepository")
+ * @ORM\Entity(repositoryClass="Vega\Repository\QuestionRepository")
  */
 class Question extends Entity
 {
@@ -19,6 +20,7 @@ class Question extends Entity
      * @var string
      *
      * @ORM\Column(name="subject", type="string")
+     * @Assert\NotBlank
      */
     protected $subject;
 
@@ -26,6 +28,8 @@ class Question extends Entity
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=10, minMessage="the content is too short")
      */
     protected $content;
 
@@ -68,6 +72,7 @@ class Question extends Entity
      * @var Answer[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     * @ORM\OrderBy({"createdAt": "DESC"})
      */
     protected $answers;
 
@@ -75,14 +80,16 @@ class Question extends Entity
      * @var Comment[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="question")
+     * @ORM\OrderBy({"createdAt": "DESC"})
      */
     protected $comments;
 
     /**
      * @var Tag[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Taichi\Entity\Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Vega\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="question_tags")
+     * @ORM\OrderBy({"name": "ASC"})
      */
     protected $tags;
 

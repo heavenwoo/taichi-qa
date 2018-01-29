@@ -1,8 +1,8 @@
 <?php
 
-namespace Taichi\Form;
+namespace Vega\Form;
 
-use Taichi\Entity\Answer;
+use Vega\Entity\Answer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

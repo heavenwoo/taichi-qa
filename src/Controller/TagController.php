@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi\Controller;
+namespace Vega\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

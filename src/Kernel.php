@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi;
+namespace Vega;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;

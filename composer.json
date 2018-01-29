@@ -43,12 +43,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Taichi\\": "src/"
+            "Vega\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Taichi\\Tests\\": "tests/"
+            "Vega\\Tests\\": "tests/"
         }
     },
     "replace": {

@@ -1,6 +1,6 @@
 //override Bootstrap 4.0
-$primary: #00796b;
-$secondary: #009688;
+$primary: #ff5e5b; //#00796b;
+$secondary: #e03838; //#009688;
 $success: #45A163; //#5fba7d
 $body-bg: #f8f9fa;
 
@@ -31,7 +31,7 @@ $body-bg: #f8f9fa;
 }
 
 .question-hyperlink:visited, .answer-hyperlink:visited, #hot-network-questions ul a:visited {
-  color: #005999
+  color: $secondary
 }
 
 #questions {

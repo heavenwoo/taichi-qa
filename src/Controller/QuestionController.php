@@ -1,10 +1,11 @@
 <?php
 
-namespace Taichi\Controller;
+namespace Vega\Controller;
 
-use Taichi\Entity\Question;
-use Taichi\Repository\{
-    AnswerRepository, QuestionRepository, TagRepository
+use Vega\Entity\Question;
+use Vega\Form\QuestionType;
+use Vega\Repository\{
+    AnswerRepository, QuestionRepository, TagRepository, UserRepository
 };
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route,
@@ -21,7 +22,8 @@ use Symfony\Component\HttpFoundation\{
  * Class QuestionController
  *
  * @Cache(maxage="1", public=true)
- * @package Taichi\Controller
+ * @Route("/question")
+ * @package Vega\Controller
  */
 class QuestionController extends Controller
 {
@@ -38,7 +40,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * @Route("/question/{id}", name="question_show", requirements={"id": "\d+"})
+     * @Route("/{id}", name="question_show", requirements={"id": "\d+"})
      * @Method("GET")
      * @Template()
      *
@@ -55,7 +57,7 @@ class QuestionController extends Controller
 
         $question = $questionRepository->getQuestionById($id);
 
-        if ($question == null) {
+        if (null == $question) {
             return $this->redirectToRoute('question_index');
         }
 
@@ -76,35 +78,83 @@ class QuestionController extends Controller
     }
 
     /**
-     * @Route("/question/create", name="question_create")
+     * @Route("/create", name="question_create")
      * @Method({"GET", "POST"})
+     * @Template()
      *
      */
-    public function create()
+    public function create(Request $request, UserRepository $userRepository)
     {
-        //
+        $question = new Question();
+        $question->setUser($userRepository->findOneBy(['username' => 'heaven']));
+        $form = $this->createForm(QuestionType::class, $question);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $question->setCreatedAt(new \DateTime());
+            $question->setUpdatedAt($question->getCreatedAt());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($question);
+            $em->flush();
+
+            $this->addFlash('success', 'Question created successfully!');
+
+            return $this->redirectToRoute('question_show', ['id' => $question->getId()]);
+        }
+
+        return [
+            'question' => $question,
+            'form' => $form->createView()
+        ];
     }
 
     /**
-     * @Route("/question/edit/{id}", name="question_edit", requirements={"id": "\d+"})
+     * @Route("/edit/{id}", name="question_edit", requirements={"id": "\d+"})
      * @Method({"GET", "POST"})
      * @Template()
      *
      * @param Question $question
      */
-    public function edit(Question $question)
+    public function edit(Request $request, Question $question)
     {
-        //
+        $form = $this->createForm(QuestionType::class, $question);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $question->setUpdatedAt(new \DateTime());
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Question updated successfully!');
+
+            return $this->redirectToRoute('question_show', ['id' => $question->getId()]);
+        }
+
+        return [
+            'question' => $question,
+            'form' => $form->createView(),
+        ];
     }
 
     /**
-     * @Route("/question/edit/{id}", name="question_edit", requirements={"id": "\d+"})
+     * @Route("/{id}/delete", name="question_delete", requirements={"id": "\d+"})
      * @Method("POST")
      *
      * @param Question $question
      */
-    public function delete(Question $question)
+    public function delete(Request $request, Question $question)
     {
-        //
+        $question->getTags()->clear();
+        $question->getAnswers()->clear();
+        $question->getComments()->clear();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($question);
+        $em->flush();
+
+        $this->addFlash('success', 'Question deleted successfully!');
+
+        return $this->redirectToRoute('question_list');
     }
 }

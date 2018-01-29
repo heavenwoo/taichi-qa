@@ -1,9 +1,9 @@
 <?php
 
-namespace Taichi\Controller;
+namespace Vega\Controller;
 
-use Taichi\Entity\Question;
-use Taichi\Repository\{
+use Vega\Entity\Question;
+use Vega\Repository\{
     AnswerRepository, QuestionRepository, TagRepository
 };
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{

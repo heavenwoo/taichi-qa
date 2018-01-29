@@ -1,10 +1,10 @@
 <?php
 
-namespace Taichi\DataFixtures;
+namespace Vega\DataFixtures;
 
 ini_set('memory_limit', -1);
 
-use Taichi\Entity\{
+use Vega\Entity\{
     Answer,
     Comment,
     Category,
@@ -280,11 +280,11 @@ class Fixtures extends Fixture
         return [
             [
                 'name' => 'sitename',
-                'value' => 'Taichi Question Answer System'
+                'value' => 'Vega Question Answer System'
             ],
             [
                 'name' => 'siteurl',
-                'value' => 'http://taichi.ask'
+                'value' => 'http://Vega.agitsk'
             ],
             [
                 'name' => 'site_admin_email',

@@ -1,18 +1,36 @@
 <?php
 
-namespace Taichi\Form;
+namespace Vega\Form;
 
-use Taichi\Entity\Question;
+use Symfony\Component\Form\Extension\Core\Type\{
+    SubmitType,
+    TextType,
+    TextareaType
+};
+use Vega\Entity\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vega\Form\Type\TagsInputType;
 
 class QuestionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('field_name')
+            ->add('subject', TextType::class, [
+                'attr' => ['autofocus' => true],
+                'label' => 'Subject'
+            ])
+            ->add('content', TextareaType::class, [
+                'attr' => [],
+                'label' => 'Content'
+            ])
+            ->add('tags', TagsInputType::class, [
+                'attr' => [],
+                'label' => 'Tags'
+            ])
+            ->add('save', SubmitType::class)
         ;
     }
 
@@ -20,7 +38,7 @@ class QuestionType extends AbstractType
     {
         $resolver->setDefaults([
             // uncomment if you want to bind to a class
-            //'data_class' => Question::class,
+            'data_class' => Question::class,
         ]);
     }
 }

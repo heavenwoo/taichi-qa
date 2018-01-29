@@ -1,6 +1,6 @@
 security:
     encoders:
-        Taichi\Entity\User: bcrypt
+        Vega\Entity\User: bcrypt
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         database_users:

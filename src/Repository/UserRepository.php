@@ -1,8 +1,8 @@
 <?php
 
-namespace Taichi\Repository;
+namespace Vega\Repository;
 
-use Taichi\Entity\User;
+use Vega\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

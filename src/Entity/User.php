@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi\Entity;
+namespace Vega\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass="Taichi\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Vega\Repository\UserRepository")
  */
 class User extends Entity implements UserInterface, \Serializable
 {

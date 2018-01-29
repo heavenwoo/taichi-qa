@@ -1,6 +1,6 @@
 <?php
 
-namespace Taichi\DependencyInjection;
+namespace Vega\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $builder->root('taichi_qa')
+        $builder->root('Vega_qa')
             ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('default_options')

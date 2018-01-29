@@ -1,10 +1,10 @@
 <?php
 
-namespace Taichi\Repository;
+namespace Vega\Repository;
 
 use Doctrine\ORM\Query;
-use Taichi\Entity\Answer;
-use Taichi\Entity\Question;
+use Vega\Entity\Answer;
+use Vega\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Taichi\Repository;
+namespace Vega\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use Taichi\Entity\Question;
+use Vega\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -68,24 +68,10 @@ class QuestionRepository extends ServiceEntityRepository
             ->join('q.user', 'u')
             ->leftJoin('q.comments', 'c')
             ->leftJoin('q.tags', 't')
-            ->where('q.id = :id')
+            ->where('q.id = :id')->setParameter('id', $id)
             ->orderBy('c.createdAt', 'DESC')
-            ->setParameter('id', $id)
             ->getQuery();
 
         return $query->getOneOrNullResult();
     }
-
-    /**
-     * public function findBySomething($value)
-     * {
-     * return $this->createQueryBuilder('q')
-     * ->where('q.something = :value')->setParameter('value', $value)
-     * ->orderBy('q.id', 'ASC')
-     * ->setMaxResults(10)
-     * ->getQuery()
-     * ->getResult()
-     * ;
-     * }
-     */
 }
