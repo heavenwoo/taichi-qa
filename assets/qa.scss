@@ -63,12 +63,9 @@ a:hover {
 .summary .tag-list {
   display: block;
 }
-.tag-list .tag {
+.tag-list .btn {
   padding: 2px 4px;
-  color: $gray-600;
-  background: $gray-200;
   font-size: .7rem;
-  line-height: 1;
 }
 .started {
   font-size: .7rem;
