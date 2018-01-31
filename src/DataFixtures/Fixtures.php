@@ -284,7 +284,7 @@ class Fixtures extends Fixture
             ],
             [
                 'name' => 'siteurl',
-                'value' => 'http://Vega.agitsk'
+                'value' => 'http://Vega.red'
             ],
             [
                 'name' => 'site_admin_email',

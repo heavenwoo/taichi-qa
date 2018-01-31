@@ -1,0 +1,63 @@
+.question-summary {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: .6rem 0;
+    margin: 0;
+    overflow: hidden;
+}
+.question-summary .cp {
+    float: left;
+    margin-right: 5px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1;
+    color: #666;
+    cursor: pointer;
+}
+.cp .status {
+    display: inline-block;
+    padding-top: 3px;
+    width: 3rem;
+    height: 2.8rem;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+.cp .answered-accepted {
+    color: #fff;
+    background: #00ff00;
+}
+.cp .answered {
+    border: 1px solid #00ff00;
+}
+.cp .mini-counts {
+    display: block;
+    font-size: 1.2rem;
+}
+.cp small {
+    font-size: .7rem;
+}
+.question-summary .summary {
+    display: block;
+}
+.summary h3 {
+    font-size: 1rem;
+}
+.summary .tag-list {
+    display: block;
+}
+.tag-list .tag {
+    padding: 2px;
+    background: #a6d9b7;
+    font-size: .8rem;
+}
+.started {
+    font-size: .8rem;
+    color: #555555;
+}
+.summary .tag-list {
+    float: left;
+}
+.summary .started {
+    float: right;
+}

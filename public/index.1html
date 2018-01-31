@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Taichi Question Answer System</title>
+    <link href="bt.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script src="assets/qajs.js"></script>
+</head>
+<body>
+<div class="container-fluid bg-secondary">
+    <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
+            <a class="navbar-brand" href="/">
+                <img src="/logo.png" width="30" height="30" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Questions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tags</a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-search"></i></div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+        </nav>
+    </div>
+</div>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="float-left">
+                            All Questions
+                        </div>
+                        <div class="float-right">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active"
+                                       href="/">latest</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/?sort=hottest">hottest</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/?sort=unanswered">unanswered</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    0
+                                </div>
+                                <small>vote</small>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>6</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>660</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/211" class="subject">Aperiam Debitis Ad Error Rerum</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">nisi</a>
+                                <a class="btn btn-sm btn-light" href="">tenetur</a>
+                                <a class="btn btn-sm btn-light" href="">velit</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">murazik.luisa</a>
+                                <time class="started-date" datetime="2018-01-17T13:17:42+00:00">
+                                    13 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>2</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>498</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/652" class="subject">Quod Saepe Eius</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">nisi</a>
+                                <a class="btn btn-sm btn-light" href="">porro</a>
+                                <a class="btn btn-sm btn-light" href="">quia</a>
+                                <a class="btn btn-sm btn-light" href="">ratione</a>
+                                <a class="btn btn-sm btn-light" href="">velit</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">maxine92</a>
+                                <time class="started-date" datetime="2018-01-16T08:34:20+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered-accepted">
+                                <div class="mini-counts">
+                                    <span>2</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>495</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/245" class="subject">Aut At Error</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">illum</a>
+                                <a class="btn btn-sm btn-light" href="">nisi</a>
+                                <a class="btn btn-sm btn-light" href="">porro</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">nitzsche.ashton</a>
+                                <time class="started-date" datetime="2018-01-16T06:11:39+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status unanswered">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>answer</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>471</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/415" class="subject">Dolorem Molestiae Aut Odio</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">asperiores</a>
+                                <a class="btn btn-sm btn-light" href="">consequatur</a>
+                                <a class="btn btn-sm btn-light" href="">dolorum</a>
+                                <a class="btn btn-sm btn-light" href="">reiciendis</a>
+                                <a class="btn btn-sm btn-light" href="">tenetur</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">eichmann.dominique</a>
+                                <time class="started-date" datetime="2018-01-16T05:29:43+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>1</span>
+                                    <small>answer</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>523</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/884" class="subject">Sed Voluptate Doloremque</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">alias</a>
+                                <a class="btn btn-sm btn-light" href="">porro</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">nakia56</a>
+                                <time class="started-date" datetime="2018-01-16T04:10:45+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>4</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>516</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/76" class="subject">Ut Aliquam Consequatur Voluptatem Voluptas</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">illum</a>
+                                <a class="btn btn-sm btn-light" href="">nisi</a>
+                                <a class="btn btn-sm btn-light" href="">reiciendis</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">fhane</a>
+                                <time class="started-date" datetime="2018-01-16T00:33:37+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>8</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>729</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/596" class="subject">Alias Commodi Aspernatur</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">alias</a>
+                                <a class="btn btn-sm btn-light" href="">porro</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">kthiel</a>
+                                <time class="started-date" datetime="2018-01-15T22:31:12+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>3</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>184</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/676" class="subject">Voluptas Atque Officia Vitae Eius</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">debitis</a>
+                                <a class="btn btn-sm btn-light" href="">illum</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">koss.joannie</a>
+                                <time class="started-date" datetime="2018-01-15T17:51:09+00:00">
+                                    14 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered-accepted">
+                                <div class="mini-counts">
+                                    <span>2</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>587</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/350" class="subject">Et Ducimus Sed Est Unde</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">asperiores</a>
+                                <a class="btn btn-sm btn-light" href="">dolorum</a>
+                                <a class="btn btn-sm btn-light" href="">illum</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">christop.lowe</a>
+                                <time class="started-date" datetime="2018-01-15T13:42:15+00:00">
+                                    15 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="question-summary">
+                        <div class="cp">
+                            <div class="status vote">
+                                <div class="mini-counts">
+                                    <span>0</span>
+                                    <small>vote</small>
+                                </div>
+                            </div>
+                            <div class="status answered">
+                                <div class="mini-counts">
+                                    <span>8</span>
+                                    <small>answers</small>
+                                </div>
+                            </div>
+                            <div class="status view">
+                                <div class="mini-counts">
+                                    <span>556</span>
+                                    <small>views</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h3>
+                                <a href="/question/807" class="subject">Facilis Possimus Nesciunt Aliquam Vitae</a>
+                            </h3>
+                            <div class="tag-list">
+                                <a class="btn btn-sm btn-light" href="">asperiores</a>
+                                <a class="btn btn-sm btn-light" href="">modi</a>
+                                <a class="btn btn-sm btn-light" href="">tenetur</a>
+                            </div>
+                            <div class="started">
+                                <a href="#">ntowne</a>
+                                <time class="started-date" datetime="2018-01-15T03:16:09+00:00">
+                                    15 days ago
+                                </time>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <nav>
+                    <ul class="pagination justify-content-center">
+
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;&nbsp;Previous</span>
+                        </li>
+
+
+                        <li class="page-item active">
+                            <span class="page-link">1</span>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=2">2</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=3">3</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=4">4</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=5">5</a>
+                        </li>
+
+
+                        <li class="page-item disabled">
+                            <span class="page-link">&hellip;</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=100">100</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" rel="next" href="/?page=2">Next&nbsp;&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <a href="/question/create" class="btn btn-primary">Ask question</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <a href="#" class="btn btn-sm btn-light">consequatur</a>
+                    <a href="#" class="btn btn-sm btn-light">cum</a>
+                    <a href="#" class="btn btn-sm btn-light">nisi</a>
+                    <a href="#" class="btn btn-sm btn-light">tenetur</a>
+                    <a href="#" class="btn btn-sm btn-light">debitis</a>
+                    <a href="#" class="btn btn-sm btn-light">modi</a>
+                    <a href="#" class="btn btn-sm btn-light">illum</a>
+                    <a href="#" class="btn btn-sm btn-light">porro</a>
+                    <a href="#" class="btn btn-sm btn-light">mollitia</a>
+                    <a href="#" class="btn btn-sm btn-light">dolorum</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="footer">
+        <div class="container">
+            <div class="clearfix">
+                <div class="footer-logo"><a href="/"><img class="footer-logo" src="/logo.png"/></a></div>
+                <dl class="footer-nav">
+                    <dt class="nav-title">PORTFOLIO</dt>
+                    <dd class="nav-item"><a href="#">Web Design</a></dd>
+                    <dd class="nav-item"><a href="#">Branding &amp; Identity</a></dd>
+                    <dd class="nav-item"><a href="#">Mobile Design</a></dd>
+                    <dd class="nav-item"><a href="#">Print</a></dd>
+                    <dd class="nav-item"><a href="#">User Interface</a></dd>
+                </dl>
+                <dl class="footer-nav">
+                    <dt class="nav-title">ABOUT</dt>
+                    <dd class="nav-item"><a href="#">The Company</a></dd>
+                    <dd class="nav-item"><a href="#">History</a></dd>
+                    <dd class="nav-item"><a href="#">Vision</a></dd>
+                </dl>
+                <dl class="footer-nav">
+                    <dt class="nav-title">GALLERY</dt>
+                    <dd class="nav-item"><a href="#">Flickr</a></dd>
+                    <dd class="nav-item"><a href="#">Picasa</a></dd>
+                    <dd class="nav-item"><a href="#">iStockPhoto</a></dd>
+                    <dd class="nav-item"><a href="#">PhotoDune</a></dd>
+                </dl>
+                <dl class="footer-nav">
+                    <dt class="nav-title">CONTACT</dt>
+                    <dd class="nav-item"><a href="#">Basic Info</a></dd>
+                    <dd class="nav-item"><a href="#">Map</a></dd>
+                    <dd class="nav-item"><a href="#">Conctact Form</a></dd>
+                </dl>
+            </div>
+            <div class="footer-copyright text-center">Copyright &copy; 2014 Flathemes.All rights reserved.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

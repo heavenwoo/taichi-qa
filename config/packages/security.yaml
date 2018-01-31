@@ -2,21 +2,36 @@ security:
     encoders:
         Vega\Entity\User: bcrypt
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
         database_users:
-            entity: { class: App\Entity\User, property: username }
+            entity: { class: Vega\Entity\User, property: username }
 #        in_memory: { memory: ~ }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
+            pattern: ^/
+            anonymous: true
+            logout: true
 
             # activate different ways to authenticate
 
             # http_basic: ~
             # https://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:
+                provider: database_users
+                login_path: '/user/login'
+                check_path: '/user/login'
+                default_target_path: /
+                use_referer: true
+#                csrf_token_generator: 'security.csrf.token_manager'
             # https://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:

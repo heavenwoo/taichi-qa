@@ -43,7 +43,7 @@ class User extends Entity implements UserInterface, \Serializable
     protected $enabled;
 
     /**
-     * @var Role
+     * @var array
      *
      * @ORM\Column(type="array")
      */

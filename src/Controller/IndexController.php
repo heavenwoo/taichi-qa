@@ -48,7 +48,7 @@ class IndexController extends Controller
         $questions = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10
+            20
         );
 
         $tags = $tagRepository->findBy([], null, $index['tag_nums']);

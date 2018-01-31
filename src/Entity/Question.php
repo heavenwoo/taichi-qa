@@ -105,7 +105,7 @@ class Question extends Entity
      */
     public function getSubject(): string
     {
-        return $this->subject;
+        return $this->subject ?: '';
     }
 
     /**
@@ -121,7 +121,7 @@ class Question extends Entity
      */
     public function getContent(): string
     {
-        return $this->content;
+        return $this->content ?: '';
     }
 
     /**

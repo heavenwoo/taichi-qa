@@ -5,32 +5,54 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link{% if sort == 'latest' or sort == '' %} active{% endif %}"
+                           href="{{ path('question_index') }}">latest</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if sort == 'hottest' %} active{% endif %}"
+                           href="{{ path('question_index') }}?sort=hottest">hottest</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if sort == 'unanswered' %} active{% endif %}"
+                           href="{{ path('question_index') }}?sort=unanswered">unanswered</a>
+                    </li>
+                </ul>
+            </div>
             {% for question in questions %}
-                <section class="container question-summary narrow">
+                <section class="question-summary horizontal">
                     <div class="cp">
-                        <div class="status views">
-                            <div class="mini-counts">
-                                <strong>{{ question.views }}</strong>
-                            </div>
-                            {% if question.views > 1 %}views{% else %}view{% endif %}
+                        <div class="status vote">
+                            <div class="mini-counts">{{ question.votes }}</div>
+                            <small>{% if question.votes > 1 %}votes{% else %}vote{% endif %}</small>
+                        </div>
+                        <div class="status{% if question.isSolved %} answered-accepted{% elseif question.isSolved == false and question.getAnswerNums != 0 %} answered{% else %} unanswered{% endif %}">
+                            <div class="mini-counts">{{ question.answers | length }}</div>
+                            <small>{% if question.answers|length > 1 %}answers{% else %}answer{% endif %}</small>
+                        </div>
+                        <div class="status view">
+                            <div class="mini-counts">{{ question.views }}</div>
+                            <small>{% if question.views > 1 %}views{% else %}view{% endif %}</small>
                         </div>
                     </div>
                     <div class="summary">
                         <h3>
-                            <a class="header"
-                               href="{{ path('question_show', {id: question.id}) }}">{{ question.subject }}</a>
+                            <a href="{{ path('question_show', {id: question.id}) }}"
+                               class="subject">{{ question.subject }}</a>
                         </h3>
-                        <div class="tags float-left mr-2">
+                        <div class="tag-list">
                             {% for tag in question.tags %}
-                                <a class="btn btn-sm btn-light" href="">{{ tag.name }}</a>
+                                <a class="tag" href="">{{ tag.name }}</a>
                             {% endfor %}
                         </div>
-                        <div class="started float-right">
+                        <div class="started">
                             <a href="#">{{ question.user.username }}</a>
-                            <span class="started-link">asked on
-                                <time class="date"
-                                      datetime="{{ question.createdAt | date('c') }}">{{ question.createdAt | ago }}</time>
-                            </span>
+                            asked on
+                            <time class="started-date" datetime="{{ question.createdAt | date('c') }}">
+                                {{ question.createdAt | ago }}
+                            </time>
                         </div>
                     </div>
                 </section>

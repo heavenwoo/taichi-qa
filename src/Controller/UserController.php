@@ -44,4 +44,14 @@ class UserController extends Controller
             'error' => $helper->getLastAuthenticationError(),
         ];
     }
+
+    /**
+     * @Route("/logout", name="user_logout")
+     *
+     * @return array
+     */
+    public function logout()
+    {
+        return [];
+    }
 }

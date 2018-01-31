@@ -11,8 +11,8 @@ Encore
     // .enableVersioning(Encore.isProduction())
 
     // uncomment to define the assets of the project
-    .addEntry('qajs', './assets/qa.js')
-    .addStyleEntry('qacss', './assets/qa.scss')
+    .addEntry('scripts', './assets/qa.js')
+    .addStyleEntry('styles', './assets/qa.scss')
 
     // uncomment if you use Sass/SCSS files
     .enableSassLoader()
