@@ -16,9 +16,8 @@ class PostRepository extends ServiceEntityRepository
     public function findPostListQuery()
     {
         return $this->createQueryBuilder('p')
-            ->select('p', 'c', 't', 'u')
+            ->select('p', 't', 'u')
             ->join('p.user', 'u')
-            ->leftJoin('p.comments', 'c')
             ->leftJoin('p.tags', 't')
             ->where('p.createdAt <= :now')->setParameter('now', new \DateTime())
             ->orderBy('p.createdAt', 'DESC')

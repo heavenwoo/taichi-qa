@@ -2,6 +2,8 @@
 
 namespace Vega\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Vega\Entity\Answer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,7 +14,13 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('field_name')
+            ->add('content', TextareaType::class, [
+                'attr' => [],
+                'label' => 'Content'
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Submit'
+            ])
         ;
     }
 
@@ -20,7 +28,7 @@ class AnswerType extends AbstractType
     {
         $resolver->setDefaults([
             // uncomment if you want to bind to a class
-            //'data_class' => Answer::class,
+            'data_class' => Answer::class,
         ]);
     }
 }

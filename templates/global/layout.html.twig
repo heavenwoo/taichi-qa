@@ -8,7 +8,7 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-3">
-                {% include 'global/sidebar.html.twig' %}
+                {% include 'global/sidebar.html.twig' with {'actived': actived} %}
             </div>
         </div>
     </div>

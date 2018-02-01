@@ -15,10 +15,17 @@ use Vega\Repository\{
     TagRepository
 };
 
+/**
+ * Class PostController
+ *
+ * @Route("/post")
+ *
+ * @package Vega\Controller
+ */
 class PostController extends Controller
 {
     /**
-     * @Route("/post", name="post_list")
+     * @Route("", name="post_list")
      * @Template()
      */
     public function list(Request $request, PostRepository $postRepository, TagRepository $tagRepository)
@@ -31,7 +38,7 @@ class PostController extends Controller
         $posts = $paginator->paginate(
             $postRepository->findPostListQuery(),
             $request->query->getInt('page', 1),
-            10
+            20
         );
 
         $tags = $tagRepository->findBy([], null, $index['tag_nums']);
@@ -41,5 +48,13 @@ class PostController extends Controller
             'tags' => $tags,
             'setting' => $settings,
         ];
+    }
+
+    /**
+     * @Route("/show/{id}", name="post_show")
+     */
+    public function show()
+    {
+
     }
 }

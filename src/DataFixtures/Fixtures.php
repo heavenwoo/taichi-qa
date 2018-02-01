@@ -22,15 +22,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class Fixtures extends Fixture
 {
-    const CATEGORY_NUMS = 10;
-
-    const TAG_NUMS = 20;
+    const TAG_NUMS = 50;
 
     const USER_NUMS = 100;
 
     const QUESTION_NUMS = 1000;
 
-    const ANSWER_NUMS = 10;
+    const ANSWER_NUMS = 30;
 
     const POST_NUMS = 100;
 
@@ -50,37 +48,11 @@ class Fixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        //$this->loadCategory($manager);
         $this->loadTag($manager);
         $this->loadSetting($manager);
-        //$this->loadRole($manager);
         $this->loadUser($manager);
         $this->loadQuestion($manager);
         $this->loadPosts($manager);
-    }
-
-    public function loadCategory(ObjectManager $manager)
-    {
-        $name = [];
-
-        foreach (range(1, self::CATEGORY_NUMS) as $i) {
-            $category = new Category();
-
-            do {
-                $categoryName = $this->faker->citySuffix;
-            } while (in_array($categoryName, $name));
-
-            $name[$i] = $categoryName;
-            $category->setName($categoryName);
-            $category->setGrade(0);
-            $category->setDescription($this->faker->sentence);
-            $category->setSort(0);
-            $this->addReference('category-' . $i, $category);
-
-            $manager->persist($category);
-        }
-
-        $manager->flush();
     }
 
     public function loadTag(ObjectManager $manager)
@@ -118,22 +90,6 @@ class Fixtures extends Fixture
             $setting->setValue($settingArray['value']);
 
             $manager->persist($setting);
-        }
-
-        $manager->flush();
-    }
-
-    public function loadRole(ObjectManager $manager)
-    {
-        $roleArrays = $this->getRoles();
-
-        foreach ($roleArrays as $roleArray) {
-            $role = new Role();
-            $role->setRoles([$roleArray[0]]);
-            $role->setDescription($roleArray[1]);
-            $this->addReference($roleArray[0], $role);
-
-            $manager->persist($role);
         }
 
         $manager->flush();
@@ -181,7 +137,7 @@ class Fixtures extends Fixture
 
             $question->setSubject(implode(' ', array_map('ucfirst', $this->faker->words(mt_rand(3, 5)))));
             $question->setContent($this->faker->paragraph(mt_rand(6, 10)));
-            $question->setViews(mt_rand(0, 1000));
+            $question->setViews(mt_rand(0, 10000));
             $question->resetVote();
             $question->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
             $question->setUpdatedAt($question->getCreatedAt());
@@ -235,6 +191,7 @@ class Fixtures extends Fixture
 
             $post->setSubject(implode(' ', array_map('ucfirst', $this->faker->words(mt_rand(3, 5)))));
             $post->setContent($this->faker->paragraph(mt_rand(6, 10)));
+            $post->setViews(mt_rand(0, 10000));
             $post->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
             $post->setUpdatedAt($post->getCreatedAt());
             $post->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));

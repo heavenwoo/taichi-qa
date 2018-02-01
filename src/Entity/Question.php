@@ -264,22 +264,6 @@ class Question extends Entity
         $this->tags->removeElement($tag);
     }
 
-//    /**
-//     * @return Category
-//     */
-//    public function getCategory(): Category
-//    {
-//        return $this->category;
-//    }
-//
-//    /**
-//     * @param Category $category
-//     */
-//    public function setCategory(Category $category): void
-//    {
-//        $this->category = $category;
-//    }
-
     /**
      * @return Collection
      */

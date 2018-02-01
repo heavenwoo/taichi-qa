@@ -2,7 +2,11 @@
 
 namespace Vega\Controller;
 
+use Vega\Entity\Answer;
+use Vega\Entity\Comment;
 use Vega\Entity\Question;
+use Vega\Form\AnswerType;
+use Vega\Form\CommentType;
 use Vega\Form\QuestionType;
 use Vega\Repository\{
     AnswerRepository, QuestionRepository, TagRepository, UserRepository
@@ -66,14 +70,21 @@ class QuestionController extends Controller
         $answers = $paginator->paginate(
             $answerRepository->findAllAnswersQueryByQuestion($question),
             $request->query->getInt('page', 1),
-            10
+            20
         );
+
+        $answer = new Answer();
+        $comment = new Comment();
+        $answerForm = $this->createForm(AnswerType::class, $answer);
+        $commentForm = $this->createForm(CommentType::class, $comment);
 
         return [
             'question' => $question,
             'answers' => $answers,
             'setting' => $settings,
             'tags' => $tagRepository->findBy([], null, 10),
+            'answerForm' => $answerForm->createView(),
+            'commentForm' => $commentForm->createView(),
         ];
     }
 

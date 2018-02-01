@@ -3,33 +3,45 @@
 {% set actived = 'question_show' %}
 
 {% block content %}
-    {{ parent() }}
-    <div class="ui vertical stripe">
-        <div class="ui grid">
-            <div class="twelve wide column">
-                <div class="ui container">
-                    <div class="ui relaxed divided items">
-                        {{ question.subject }}
-                        {{ question.content }}
-                        {% for comment in question.comments %}
-                            <div class="item">
-                                <div class="content">
-                                    {{ comment.content }}
-                                    <div class="extra">
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {% for tag in question.tags %}
-                            <a class="item" href="">{{ tag.name }}</a>
-                        {% endfor %}
-                    </div>
+    <div class="card">
+        <div class="card-body">
+            <article>
+                <h3>{{ question.subject }}</h3>
+                <div class="content">
+                    {{ question.content | markdown }}
                 </div>
+                <div class="comment">
+                    {% for comment in question.comments %}
+                        <div class="item">
+                            <div class="content">
+                                {{ comment.content }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tag-list">
+                    {% for tag in question.tags %}
+                        <a class="btn btn-light" href="">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="answers-list">
+                {% for answer in question.answers %}
+                    <section class="answer">
+                        {{ answer.content }}
+                        <time datetime="{{ answer.createdAt | date('c') }}">{{ answer.createdAt | ago }}</time>
+                    </section>
+                {% endfor %}
             </div>
-            <div class="four wide column">
-                {% include 'global/sidebar.html.twig' %}
+            <div class="answer-form">
+                {{ form_start(answerForm) }}
+                {{ form_widget(answerForm) }}
+                {{ form_end(answerForm) }}
             </div>
         </div>
     </div>
-
 {% endblock %}

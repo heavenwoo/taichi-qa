@@ -52,7 +52,7 @@ class Post extends Entity
      * @var Comment[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
-     * @ORM\OrderBy({"publishedAt": "DESC"})
+     * @ORM\OrderBy({"createdAt": "DESC"})
      */
     protected $comments;
 

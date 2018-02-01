@@ -7,6 +7,7 @@ use Vega\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Vega\Entity\Tag;
 
 class QuestionRepository extends ServiceEntityRepository
 {
@@ -73,5 +74,13 @@ class QuestionRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $query->getOneOrNullResult();
+    }
+
+    public function findQuestionsByTag(Tag $tag)
+    {
+        return $this->getQuestionQueryBuilder()
+            ->andWhere('t = :tag')->setParameter('tag', $tag)
+            ->orderBy('q.createdAt', 'DESC')
+            ->getQuery();
     }
 }
