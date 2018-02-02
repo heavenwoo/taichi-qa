@@ -14,10 +14,10 @@ class UserType extends AbstractType
         $builder
             ->add('username', null, [
                 'attr' => ['autofocus' => true],
-                'label' => 'Username'
+                'label' => 'label.username'
             ])
             ->add('password', null, [
-                'label' => 'Password',
+                'label' => 'label.password',
             ]);
     }
 

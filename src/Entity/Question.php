@@ -3,15 +3,15 @@
 namespace Vega\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\{
-    ArrayCollection, Collection
-};
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
  *
  * @ORM\Table(name="questions")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Vega\Repository\QuestionRepository")
  */
 class Question extends Entity
@@ -19,7 +19,7 @@ class Question extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="subject", type="string")
+     * @ORM\Column(type="string")
      * @Assert\NotBlank
      */
     protected $subject;
@@ -27,16 +27,23 @@ class Question extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
-     * @Assert\Length(min=10, minMessage="the content is too short")
+     * @Assert\Length(min=10, minMessage="question.content_too_short")
      */
     protected $content;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="views", type="integer")
+     * @ORM\Column(type="integer")
      */
     protected $views;
 
@@ -50,7 +57,7 @@ class Question extends Entity
     /**
      * @var boolean
      *
-     * @ORM\Column(name="solved", type="boolean")
+     * @ORM\Column(type="boolean")
      */
     protected $solved;
 
@@ -114,6 +121,22 @@ class Question extends Entity
     public function setSubject(string $subject): void
     {
         $this->subject = $subject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     /**

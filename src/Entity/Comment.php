@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Vega\Repository\CommentRepository")
  */
 class Comment extends Entity

@@ -2,20 +2,13 @@
 
 namespace Vega\Controller;
 
-use Vega\Entity\Question;
-use Vega\Repository\{
-    AnswerRepository, QuestionRepository, TagRepository
-};
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
-    Route,
-    Cache,
-    Method
-};
-use Symfony\Component\HttpFoundation\{
-    Request,
-    Response
-};
-
+use Vega\Repository\QuestionRepository;
+use Vega\Repository\TagRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController extends Controller
 {

@@ -8,19 +8,16 @@ use Vega\Entity\Question;
 use Vega\Form\AnswerType;
 use Vega\Form\CommentType;
 use Vega\Form\QuestionType;
-use Vega\Repository\{
-    AnswerRepository, QuestionRepository, TagRepository, UserRepository
-};
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
-    Route,
-    Cache,
-    Method,
-    Template
-};
-use Symfony\Component\HttpFoundation\{
-    Request,
-    Response
-};
+use Vega\Repository\AnswerRepository;
+use Vega\Repository\QuestionRepository;
+use Vega\Repository\TagRepository;
+use Vega\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class QuestionController
@@ -44,18 +41,17 @@ class QuestionController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="question_show", requirements={"id": "\d+"})
+     * @Route("/{id}/{slug}", name="question_show", requirements={"id": "\d+"})
      * @Method("GET")
-     * @Template()
      *
      * @param int $id
      * @param QuestionRepository $questionRepository
      * @param AnswerRepository $answerRepository
      * @param TagRepository $tagRepository
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function show(int $id, QuestionRepository $questionRepository, AnswerRepository $answerRepository, TagRepository $tagRepository, Request $request)
+    public function show(int $id, QuestionRepository $questionRepository, AnswerRepository $answerRepository, TagRepository $tagRepository, Request $request): Response
     {
         $settings = $this->getSettings();
 
@@ -78,21 +74,21 @@ class QuestionController extends Controller
         $answerForm = $this->createForm(AnswerType::class, $answer);
         $commentForm = $this->createForm(CommentType::class, $comment);
 
-        return [
+        return $this->render("question/show.html.twig", [
             'question' => $question,
             'answers' => $answers,
             'setting' => $settings,
             'tags' => $tagRepository->findBy([], null, 10),
             'answerForm' => $answerForm->createView(),
             'commentForm' => $commentForm->createView(),
-        ];
+        ]);
     }
 
     /**
      * @Route("/create", name="question_create")
      * @Method({"GET", "POST"})
-     * @Template()
      *
+     * @Security("has_role('ROLE_USER')")
      */
     public function create(Request $request, UserRepository $userRepository)
     {
@@ -110,21 +106,20 @@ class QuestionController extends Controller
             $em->persist($question);
             $em->flush();
 
-            $this->addFlash('success', 'Question created successfully!');
+            $this->addFlash('success', 'question.created');
 
             return $this->redirectToRoute('question_show', ['id' => $question->getId()]);
         }
 
-        return [
+        return $this->render("question/create.html.twig", [
             'question' => $question,
             'form' => $form->createView()
-        ];
+        ]);
     }
 
     /**
      * @Route("/edit/{id}", name="question_edit", requirements={"id": "\d+"})
      * @Method({"GET", "POST"})
-     * @Template()
      *
      * @param Question $question
      */
@@ -137,15 +132,15 @@ class QuestionController extends Controller
             $question->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Question updated successfully!');
+            $this->addFlash('success', 'question.updated');
 
             return $this->redirectToRoute('question_show', ['id' => $question->getId()]);
         }
 
-        return [
+        return $this->render("question/edit.html.twig", [
             'question' => $question,
             'form' => $form->createView(),
-        ];
+        ]);
     }
 
     /**
@@ -164,7 +159,7 @@ class QuestionController extends Controller
         $em->remove($question);
         $em->flush();
 
-        $this->addFlash('success', 'Question deleted successfully!');
+        $this->addFlash('success', 'question.deleted');
 
         return $this->redirectToRoute('question_list');
     }

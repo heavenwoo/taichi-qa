@@ -2,9 +2,8 @@
 
 namespace Vega\Entity;
 
-use Doctrine\Common\Collections\{
-    ArrayCollection, Collection
-};
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Post
  *
  * @ORM\Table(name="posts")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Vega\Repository\PostRepository")
  */
 class Post extends Entity
@@ -19,7 +19,7 @@ class Post extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="subject", type="text")
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
     protected $subject;
@@ -27,7 +27,14 @@ class Post extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(min=10, minMessage="the content is too short")
      */
@@ -83,6 +90,22 @@ class Post extends Entity
     public function setSubject(string $subject): void
     {
         $this->subject = $subject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     /**

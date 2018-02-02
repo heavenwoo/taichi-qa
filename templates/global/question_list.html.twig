@@ -19,7 +19,7 @@
         </div>
         <div class="summary">
             <h3>
-                <a href="{{ path('question_show', {id: question.id}) }}"
+                <a href="{{ path('question_show', {id: question.id, slug: question.slug}) }}"
                    class="subject">{{ question.subject }}</a>
             </h3>
             {% if tags_list is defined %}

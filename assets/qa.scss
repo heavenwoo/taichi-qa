@@ -14,6 +14,16 @@ $body-bg: #f8f9fa;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
+.body-container {
+  flex: 1;
+  min-height: 600px;
+}
+footer {
+  background: $gray-200;
+  margin-top: 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
 a:hover {
   color: $secondary;
   text-decoration: none;

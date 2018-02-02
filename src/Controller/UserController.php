@@ -2,10 +2,7 @@
 
 namespace Vega\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
-    Route,
-    Template
-};
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -29,29 +26,26 @@ class UserController extends Controller
 
     /**
      * @Route("/login", name="user_login")
-     * @Template()
      *
      * @param AuthenticationUtils $helper
-     * @return array
+     * @return Response
      */
-    public function login(AuthenticationUtils $helper)
+    public function login(AuthenticationUtils $helper): Response
     {
         $setting = $this->getSettings();
 
-        return [
+        return $this->render("user/login.html.twig", [
             'setting' => $setting,
             'last_username' => $helper->getLastUsername(),
             'error' => $helper->getLastAuthenticationError(),
-        ];
+        ]);
     }
 
     /**
      * @Route("/logout", name="user_logout")
-     *
-     * @return array
      */
     public function logout()
     {
-        return [];
+        return true;
     }
 }

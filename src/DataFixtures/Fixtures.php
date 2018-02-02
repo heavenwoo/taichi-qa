@@ -4,17 +4,14 @@ namespace Vega\DataFixtures;
 
 ini_set('memory_limit', -1);
 
-use Vega\Entity\{
-    Answer,
-    Comment,
-    Category,
-    Post,
-    Question,
-    Role,
-    Setting,
-    Tag,
-    User
-};
+use Vega\Entity\Answer;
+use Vega\Entity\Comment;
+use Vega\Entity\Post;
+use Vega\Entity\Question;
+use Vega\Entity\Setting;
+use Vega\Entity\Tag;
+use Vega\Entity\User;
+use Vega\Utils\Slugger;
 use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -136,11 +133,11 @@ class Fixtures extends Fixture
             $question = new Question();
 
             $question->setSubject(implode(' ', array_map('ucfirst', $this->faker->words(mt_rand(3, 5)))));
+            $question->setSlug(Slugger::slugify($question->getSubject()));
             $question->setContent($this->faker->paragraph(mt_rand(6, 10)));
             $question->setViews(mt_rand(0, 10000));
             $question->resetVote();
             $question->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
-            $question->setUpdatedAt($question->getCreatedAt());
             $question->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
             //$question->setCategory($this->getReference('category-' . mt_rand(1, self::CATEGORY_NUMS)));
             $question->addTags(...$this->getRandomTags());
@@ -171,7 +168,6 @@ class Fixtures extends Fixture
                 $answer->setBest($isBestId == $i);
                 $answer->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
                 $answer->setCreatedAt($this->faker->dateTimeBetween($question->getCreatedAt(), 'now'));
-                $answer->setUpdatedAt($answer->getCreatedAt());
 
                 $this->addComments($manager, $answer);
 
@@ -190,10 +186,10 @@ class Fixtures extends Fixture
             $post = new Post();
 
             $post->setSubject(implode(' ', array_map('ucfirst', $this->faker->words(mt_rand(3, 5)))));
+            $post->setSlug(Slugger::slugify($post->getSubject()));
             $post->setContent($this->faker->paragraph(mt_rand(6, 10)));
             $post->setViews(mt_rand(0, 10000));
             $post->setCreatedAt($this->faker->dateTimeBetween('-1 year', '-10 days'));
-            $post->setUpdatedAt($post->getCreatedAt());
             $post->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
             $post->addTags(...$this->getRandomTags());
 
@@ -212,7 +208,6 @@ class Fixtures extends Fixture
 
             $comment->setContent($this->faker->paragraph(mt_rand(1, 3)));
             $comment->setCreatedAt($this->faker->dateTimeBetween($entity->getCreatedAt(), 'now'));
-            $comment->setUpdatedAt($comment->getCreatedAt());
             $comment->setUser($this->getReference('username-' . mt_rand(0, self::USER_NUMS)));
 
             $entity->addComment($comment);
@@ -255,16 +250,6 @@ class Fixtures extends Fixture
                 'name' => 'index_tag_nums',
                 'value' => 10
             ]
-        ];
-    }
-
-    private function getRoles()
-    {
-        return [
-            ['ROLE_SUPPER_ADMIN', 'Supper admin role'],
-            ['ROLE_ADMIN', 'Admin role'],
-            ['ROLE_USER', 'User role'],
-            ['ROLE_GUEST', 'Guest role']
         ];
     }
 }

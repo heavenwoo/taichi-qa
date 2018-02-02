@@ -6,5 +6,4 @@ use Vega\Controller\Controller;
 
 class DashboardController extends Controller
 {
-
 }

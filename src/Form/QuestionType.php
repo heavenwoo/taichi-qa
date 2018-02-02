@@ -2,11 +2,9 @@
 
 namespace Vega\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\{
-    SubmitType,
-    TextType,
-    TextareaType
-};
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Vega\Entity\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,17 +18,17 @@ class QuestionType extends AbstractType
         $builder
             ->add('subject', TextType::class, [
                 'attr' => ['autofocus' => true],
-                'label' => 'Subject'
+                'label' => 'label.subject'
             ])
             ->add('content', TextareaType::class, [
                 'attr' => [],
-                'label' => 'Content'
+                'label' => 'label.content'
             ])
             ->add('tags', TagsInputType::class, [
                 'attr' => [],
-                'label' => 'Tags'
+                'label' => 'label.tags'
             ])
-            ->add('save', SubmitType::class)
+            ->add('label.submit', SubmitType::class)
         ;
     }
 

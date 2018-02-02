@@ -2,18 +2,11 @@
 
 namespace Vega\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
-    Route,
-    Template
-};
-use Symfony\Component\HttpFoundation\{
-    Response,
-    Request
-};
-use Vega\Repository\{
-    PostRepository,
-    TagRepository
-};
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Vega\Repository\PostRepository;
+use Vega\Repository\TagRepository;
 
 /**
  * Class PostController
@@ -26,9 +19,8 @@ class PostController extends Controller
 {
     /**
      * @Route("", name="post_list")
-     * @Template()
      */
-    public function list(Request $request, PostRepository $postRepository, TagRepository $tagRepository)
+    public function list(Request $request, PostRepository $postRepository, TagRepository $tagRepository): Response
     {
         $settings = $this->getSettings();
         $index = $this->getParameter('index');
@@ -43,11 +35,11 @@ class PostController extends Controller
 
         $tags = $tagRepository->findBy([], null, $index['tag_nums']);
 
-        return [
+        return $this->render("post/list.html.twig", [
             'posts' => $posts,
             'tags' => $tags,
             'setting' => $settings,
-        ];
+        ]);
     }
 
     /**
@@ -55,6 +47,5 @@ class PostController extends Controller
      */
     public function show()
     {
-
     }
 }

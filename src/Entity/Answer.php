@@ -12,6 +12,7 @@ use Doctrine\ORM\Query;
  * Answer
  *
  * @ORM\Table(name="answers")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Vega\Repository\AnswerRepository")
  */
 class Answer extends Entity

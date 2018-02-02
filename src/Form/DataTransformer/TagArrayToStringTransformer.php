@@ -3,7 +3,6 @@
 
 namespace Vega\Form\DataTransformer;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Vega\Entity\Tag;

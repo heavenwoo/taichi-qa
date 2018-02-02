@@ -16,10 +16,10 @@ class AnswerType extends AbstractType
         $builder
             ->add('content', TextareaType::class, [
                 'attr' => [],
-                'label' => 'Content'
+                'label' => 'label.content'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Submit'
+                'label' => 'label.submit'
             ])
         ;
     }
