@@ -28,6 +28,10 @@ a:hover {
   color: $secondary;
   text-decoration: none;
 }
+pre code {
+  font-family: Monaco, monospace;
+  font-size: 12px;
+}
 .question-summary {
   display: block;
   border-bottom: 1px solid #eee;
@@ -46,7 +50,7 @@ a:hover {
 }
 .cp .status {
   display: inline-block;
-  padding-top: 3px;
+  padding-top: 6px;
   width: 3rem;
   height: 3rem;
 }

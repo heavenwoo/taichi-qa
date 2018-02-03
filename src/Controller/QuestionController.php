@@ -4,6 +4,7 @@ namespace Vega\Controller;
 
 use Vega\Entity\Answer;
 use Vega\Entity\Comment;
+use Vega\Entity\Entity;
 use Vega\Entity\Question;
 use Vega\Form\AnswerType;
 use Vega\Form\CommentType;
@@ -18,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Vega\Utils\Slugger;
 
 /**
  * Class QuestionController
@@ -55,6 +57,7 @@ class QuestionController extends Controller
     {
         $settings = $this->getSettings();
 
+        /** @var Question $question */
         $question = $questionRepository->getQuestionById($id);
 
         if (null == $question) {
@@ -66,7 +69,7 @@ class QuestionController extends Controller
         $answers = $paginator->paginate(
             $answerRepository->findAllAnswersQueryByQuestion($question),
             $request->query->getInt('page', 1),
-            20
+            10
         );
 
         $answer = new Answer();
@@ -74,11 +77,14 @@ class QuestionController extends Controller
         $answerForm = $this->createForm(AnswerType::class, $answer);
         $commentForm = $this->createForm(CommentType::class, $comment);
 
+        // views number add 1
+        $this->incrementView($question);
+
         return $this->render("question/show.html.twig", [
             'question' => $question,
             'answers' => $answers,
             'setting' => $settings,
-            'tags' => $tagRepository->findBy([], null, 10),
+            'tags' => $tagRepository->findBy([], null, 50),
             'answerForm' => $answerForm->createView(),
             'commentForm' => $commentForm->createView(),
         ]);
@@ -90,17 +96,21 @@ class QuestionController extends Controller
      *
      * @Security("has_role('ROLE_USER')")
      */
-    public function create(Request $request, UserRepository $userRepository)
+    public function create(Request $request): Response
     {
         $question = new Question();
-        $question->setUser($userRepository->findOneBy(['username' => 'heaven']));
+        $question->setUser($this->getUser());
         $form = $this->createForm(QuestionType::class, $question);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $question->setCreatedAt(new \DateTime());
-            $question->setUpdatedAt($question->getCreatedAt());
+            $question->setSlug(Slugger::slugify($question->getSubject()));
+            $question->setViews(0);
+            $question->setAnswerNums(0);
+            $question->setSolved(false);
+            $question->setVote(0);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($question);
@@ -108,7 +118,7 @@ class QuestionController extends Controller
 
             $this->addFlash('success', 'question.created');
 
-            return $this->redirectToRoute('question_show', ['id' => $question->getId()]);
+            return $this->redirectToRoute('question_show', ['id' => $question->getId(), 'slug' => $question->getSlug()]);
         }
 
         return $this->render("question/create.html.twig", [

@@ -165,4 +165,9 @@ class User extends Entity implements UserInterface, \Serializable
     {
         return serialize([$this->id, $this->username, $this->password]);
     }
+
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
 }

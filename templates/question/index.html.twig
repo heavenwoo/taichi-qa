@@ -22,7 +22,7 @@
                 </ul>
             </div>
             {% set tag_list = true %}
-            {% include "global/question_list.html.twig" with {'tags_list': true} %}
+            {% include "question/_list.html.twig" with {'tags_list': true} %}
         </div>
         {{ knp_pagination_render(questions) }}
     </div>

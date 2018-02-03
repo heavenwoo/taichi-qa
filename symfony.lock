@@ -1,4 +1,7 @@
 {
+    "composer/ca-bundle": {
+        "version": "1.1.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -74,6 +77,15 @@
     "fzaninotto/faker": {
         "version": "v1.7.1"
     },
+    "javiereguiluz/easyadmin-bundle": {
+        "version": "1.17",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.17",
+            "ref": "66070ea553247b0cd5275e21d0fe5399a25f40be"
+        }
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -109,6 +121,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.0"
+    },
+    "pagerfanta/pagerfanta": {
+        "version": "v1.0.5"
     },
     "php-translation/common": {
         "version": "0.2.3"
@@ -147,6 +162,15 @@
             "branch": "master",
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
+        }
+    },
+    "sensiolabs/security-checker": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "e65a105bf4cd5b1b79012ba029954927f05922e8"
         }
     },
     "swiftmailer/swiftmailer": {

@@ -76,7 +76,7 @@ class QuestionRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-    public function findQuestionsByTag(Tag $tag)
+    public function findQuestionsQueryByTag(Tag $tag)
     {
         return $this->getQuestionQueryBuilder()
             ->andWhere('t = :tag')->setParameter('tag', $tag)

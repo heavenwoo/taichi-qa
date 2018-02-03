@@ -94,7 +94,7 @@ class Question extends Entity
     /**
      * @var Tag[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Vega\Entity\Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="question_tags")
      * @ORM\OrderBy({"name": "ASC"})
      */
@@ -213,14 +213,9 @@ class Question extends Entity
         $this->votes = 0;
     }
 
-    public function increateVote()
+    public function setVote(int $vote)
     {
-        $this->votes++;
-    }
-
-    public function decreaseVote()
-    {
-        $this->votes--;
+        $this->votes = $vote;
     }
 
     /**

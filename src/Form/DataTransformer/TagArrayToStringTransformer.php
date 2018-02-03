@@ -3,17 +3,17 @@
 
 namespace Vega\Form\DataTransformer;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Vega\Entity\Tag;
+use Vega\Repository\TagRepository;
 
 class TagArrayToStringTransformer implements DataTransformerInterface
 {
-    private $manager;
+    private $tags;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(TagRepository $tags)
     {
-        $this->manager = $manager;
+        $this->tags = $tags;
     }
 
     public function transform($tags): string
@@ -29,7 +29,7 @@ class TagArrayToStringTransformer implements DataTransformerInterface
 
         $names = array_filter(array_unique(array_map('trim', explode(',', $string))));
 
-        $tags = $this->manager->getRepository(Tag::class)->findBy([
+        $tags = $this->tags->findBy([
             'name' => $names,
         ]);
         $newNames = array_diff($names, $tags);

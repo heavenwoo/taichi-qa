@@ -5,6 +5,7 @@ namespace Vega\Repository;
 use Vega\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Vega\Entity\Tag;
 
 class PostRepository extends ServiceEntityRepository
 {
@@ -13,7 +14,7 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function findPostListQuery()
+    public function findPostsListQuery()
     {
         return $this->createQueryBuilder('p')
             ->select('p', 't', 'u')
@@ -38,16 +39,14 @@ class PostRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-    /*
-    public function findBySomething($value)
+    public function findPostsQueryByTag(Tag $tag)
     {
         return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->select('p', 't', 'u')
+            ->join('p.user', 'u')
+            ->leftJoin('p.tags', 't')
+            ->where('t = :tag')->setParameter('tag', $tag)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery();
     }
-    */
 }

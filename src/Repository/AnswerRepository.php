@@ -22,7 +22,8 @@ class AnswerRepository extends ServiceEntityRepository
             ->join('a.user', 'u')
             ->leftJoin('a.comments', 'c')
             ->where('a.question = :question')->setParameter('question', $question)
-            ->orderBy('a.createdAt', 'DESC')
+            ->orderBy('a.best', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
             ->getQuery();
     }
 }

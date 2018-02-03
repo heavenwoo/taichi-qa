@@ -14,13 +14,7 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextareaType::class, [
-                'attr' => [],
-                'label' => 'label.content'
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'label.submit'
-            ])
+            ->add('content', TextareaType::class)
         ;
     }
 

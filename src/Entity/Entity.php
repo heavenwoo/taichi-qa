@@ -43,6 +43,39 @@ abstract class Entity
     }
 
     /**
+     * @param string $column
+     * @param int $amount
+     * @return bool
+     */
+    public function increment(string $column, int $amount = 1)
+    {
+        return $this->incrementOrDecrement($column, $amount, 'increment');
+    }
+
+    /**
+     * @param string $column
+     * @param int $amount
+     * @return bool
+     */
+    public function decrement(string $column, int $amount = 1)
+    {
+        return $this->incrementOrDecrement($column, $amount, 'decrement');
+    }
+
+    /**
+     * @param string $column
+     * @param int $amount
+     * @param string $method
+     * @return bool
+     */
+    private function incrementOrDecrement(string $column, int $amount, string $method)
+    {
+        $this->{$column} = $this->{$column} + ($method == 'increment' ? $amount : ($amount * - 1));
+
+        return true;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -91,11 +124,11 @@ abstract class Entity
      */
     public function PrePersist()
     {
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
+        if ($this->createdAt == null) {
+            $this->setCreatedAt(new \DateTime());
         }
 
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt($this->getCreatedAt());
     }
 
     /**
@@ -103,6 +136,6 @@ abstract class Entity
      */
     public function PreUpdate()
     {
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(new \DateTime());
     }
 }

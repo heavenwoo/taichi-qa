@@ -25,7 +25,7 @@ class QuestionType extends AbstractType
                 'label' => 'label.content'
             ])
             ->add('tags', TagsInputType::class, [
-                'attr' => [],
+                'mapped' => false,
                 'label' => 'label.tags'
             ])
             ->add('label.submit', SubmitType::class)

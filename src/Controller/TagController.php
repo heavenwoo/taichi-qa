@@ -39,7 +39,7 @@ class TagController extends Controller
         $settings = $this->getSettings();
         $index = $this->getParameter('index');
 
-        $query = $questionRepository->findQuestionsByTag($tag);
+        $query = $questionRepository->findQuestionsQueryByTag($tag);
 
         $paginator = $this->get('knp_paginator');
 
@@ -71,11 +71,11 @@ class TagController extends Controller
         $settings = $this->getSettings();
         $index = $this->getParameter('index');
 
-        $query = $questionRepository->findQuestionsByTag($tag);
+        $query = $postRepository->findPostsQueryByTag($tag);
 
         $paginator = $this->get('knp_paginator');
 
-        $questions = $paginator->paginate(
+        $posts = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
             20
@@ -83,8 +83,8 @@ class TagController extends Controller
 
         $tags = $tagRepository->findBy([], null, $index['tag_nums']);
 
-        return $this->render("tag/list.html.twig", [
-            'questions' => $questions,
+        return $this->render("tag/post_list.html.twig", [
+            'posts' => $posts,
             'tags' => $tags,
             'setting' => $settings,
         ]);
