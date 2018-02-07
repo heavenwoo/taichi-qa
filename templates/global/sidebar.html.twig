@@ -1,6 +1,9 @@
 <div class="card mb-3">
     <div class="card-body">
         {% if is_granted("ROLE_USER") %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary">{{ 'admin.dashboard' | trans }}</a>
+            {% endif %}
             <a href="{{ path('question_create') }}" class="btn btn-primary">{{ 'question.ask' | trans }}</a>
             <a href="{{ path('user_logout') }}" class="btn btn-primary">{{ 'user.logout' | trans }}</a>
         {% else %}

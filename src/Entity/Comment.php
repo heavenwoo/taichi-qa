@@ -76,9 +76,9 @@ class Comment extends Entity
     }
 
     /**
-     * @param mixed $question
+     * @param null|Question $question
      */
-    public function setQuestion($question): void
+    public function setQuestion(?Question $question): void
     {
         $this->question = $question;
     }
@@ -92,9 +92,9 @@ class Comment extends Entity
     }
 
     /**
-     * @param mixed $answer
+     * @param null|Answer $answer
      */
-    public function setAnswer($answer): void
+    public function setAnswer(?Answer $answer): void
     {
         $this->answer = $answer;
     }

@@ -77,15 +77,6 @@
     "fzaninotto/faker": {
         "version": "v1.7.1"
     },
-    "javiereguiluz/easyadmin-bundle": {
-        "version": "1.17",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.17",
-            "ref": "66070ea553247b0cd5275e21d0fe5399a25f40be"
-        }
-    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -121,9 +112,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.0"
-    },
-    "pagerfanta/pagerfanta": {
-        "version": "v1.0.5"
     },
     "php-translation/common": {
         "version": "0.2.3"
@@ -208,6 +196,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.0.3"
+    },
+    "symfony/expression-language": {
+        "version": "v4.0.4"
     },
     "symfony/filesystem": {
         "version": "v4.0.3"

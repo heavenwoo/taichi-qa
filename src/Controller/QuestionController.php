@@ -122,6 +122,7 @@ class QuestionController extends Controller
         }
 
         return $this->render("question/create.html.twig", [
+            'setting' => $this->getSettings(),
             'question' => $question,
             'form' => $form->createView()
         ]);

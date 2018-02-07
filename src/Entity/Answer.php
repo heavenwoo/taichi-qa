@@ -115,9 +115,9 @@ class Answer extends Entity
     }
 
     /**
-     * @param Question $question
+     * @param null|Question $question
      */
-    public function setQuestion(Question $question): void
+    public function setQuestion(?Question $question): void
     {
         $this->question = $question;
     }

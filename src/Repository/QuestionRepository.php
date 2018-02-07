@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Vega\Entity\Tag;
+use Vega\Entity\User;
 
 class QuestionRepository extends ServiceEntityRepository
 {
@@ -82,5 +83,13 @@ class QuestionRepository extends ServiceEntityRepository
             ->andWhere('t = :tag')->setParameter('tag', $tag)
             ->orderBy('q.createdAt', 'DESC')
             ->getQuery();
+    }
+
+    public function findQuestionsByUser(User $user)
+    {
+        return $this->createQueryBuilder('q')
+            ->where('q.user = :user')->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }

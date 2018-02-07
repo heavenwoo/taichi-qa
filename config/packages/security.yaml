@@ -19,7 +19,7 @@ security:
             pattern: ^/
             anonymous: true
             logout:
-                path: /user/logout
+                path: user_logout
                 target: /
 
             # activate different ways to authenticate
@@ -29,11 +29,13 @@ security:
 
             form_login:
                 provider: database_users
-                login_path: /user/login
-                check_path: /user/login
+                login_path: user_login
+                check_path: user_login
                 default_target_path: /
                 use_referer: true
 #                csrf_token_generator: 'security.csrf.token_manager'
             # https://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     access_control:
+        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '/question_create', roles: ROLE_USER }

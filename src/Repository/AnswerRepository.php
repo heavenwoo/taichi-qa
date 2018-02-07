@@ -7,6 +7,7 @@ use Vega\Entity\Answer;
 use Vega\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Vega\Entity\User;
 
 class AnswerRepository extends ServiceEntityRepository
 {
@@ -25,5 +26,13 @@ class AnswerRepository extends ServiceEntityRepository
             ->orderBy('a.best', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
             ->getQuery();
+    }
+
+    public function findAnswersByUser(User $user)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.user = :user')->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }
