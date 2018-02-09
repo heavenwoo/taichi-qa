@@ -18,7 +18,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 
 class VegaUserAddCommand extends Command
 {
-    protected static $defaultName = 'vega:user-add';
+    protected static $defaultName = 'vega:security-add';
 
     /**
      * @var SymfonyStyle
@@ -50,10 +50,10 @@ class VegaUserAddCommand extends Command
             ->setHelp($this->getCommandHelp())
             // commands can optionally define arguments and/or options (mandatory and optional)
             // see https://symfony.com/doc/current/components/console/console_arguments.html
-            ->addArgument('username', InputArgument::OPTIONAL, 'The username of the new user')
-            ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new user')
-            ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new user')
-            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator')
+            ->addArgument('username', InputArgument::OPTIONAL, 'The username of the new security')
+            ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new security')
+            ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new security')
+            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the security is created as an administrator')
         ;
     }
 
@@ -72,7 +72,7 @@ class VegaUserAddCommand extends Command
     /**
      * This method is executed after initialize() and before execute(). Its purpose
      * is to check if some of the options/arguments are missing and interactively
-     * ask the user for those values.
+     * ask the security for those values.
      *
      * This method is completely optional. If you are developing an internal console
      * command, you probably should not implement this method because it requires
@@ -90,7 +90,7 @@ class VegaUserAddCommand extends Command
             'If you prefer to not use this interactive wizard, provide the',
             'arguments required by this command as follows:',
             '',
-            ' $ php bin/console vega:user-add username password email@example.com',
+            ' $ php bin/console vega:security-add username password email@example.com',
             '',
             'Now we\'ll ask you for the value of all the missing command arguments.',
         ]);
@@ -130,17 +130,17 @@ class VegaUserAddCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $stopwatch = new Stopwatch();
-        $stopwatch->start('add-user-command');
+        $stopwatch->start('add-security-command');
 
         $username = $input->getArgument('username');
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
         $isAdmin = $input->getOption('admin');
 
-        // make sure to validate the user data is correct
+        // make sure to validate the security data is correct
         $this->validateUserData($username, $plainPassword, $email);
 
-        // create the user and encode its password
+        // create the security and encode its password
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
@@ -155,32 +155,32 @@ class VegaUserAddCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->io->success(sprintf('%s was successfully created: %s (%s)', $isAdmin ? 'Administrator user' : 'User', $user->getUsername(), $user->getEmail()));
+        $this->io->success(sprintf('%s was successfully created: %s (%s)', $isAdmin ? 'Administrator security' : 'User', $user->getUsername(), $user->getEmail()));
 
-        $event = $stopwatch->stop('add-user-command');
+        $event = $stopwatch->stop('add-security-command');
         if ($output->isVerbose()) {
-            $this->io->comment(sprintf('New user database id: %d / Elapsed time: %.2f ms / Consumed memory: %.2f MB', $user->getId(), $event->getDuration(), $event->getMemory() / (1024 ** 2)));
+            $this->io->comment(sprintf('New security database id: %d / Elapsed time: %.2f ms / Consumed memory: %.2f MB', $user->getId(), $event->getDuration(), $event->getMemory() / (1024 ** 2)));
         }
     }
 
     private function validateUserData($username, $plainPassword, $email)
     {
-        // first check if a user with the same username already exists.
+        // first check if a security with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);
 
         if (null !== $existingUser) {
-            throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
+            throw new RuntimeException(sprintf('There is already a security registered with the "%s" username.', $username));
         }
 
         // validate password and email if is not this input means interactive.
         $this->validator->validatePassword($plainPassword);
         $this->validator->validateEmail($email);
 
-        // check if a user with the same email already exists.
+        // check if a security with the same email already exists.
         $existingEmail = $this->users->findOneBy(['email' => $email]);
 
         if (null !== $existingEmail) {
-            throw new RuntimeException(sprintf('There is already a user registered with the "%s" email.', $email));
+            throw new RuntimeException(sprintf('There is already a security registered with the "%s" email.', $email));
         }
     }
 

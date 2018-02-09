@@ -19,7 +19,7 @@ security:
             pattern: ^/
             anonymous: true
             logout:
-                path: user_logout
+                path: security_logout
                 target: /
 
             # activate different ways to authenticate
@@ -29,8 +29,8 @@ security:
 
             form_login:
                 provider: database_users
-                login_path: user_login
-                check_path: user_login
+                login_path: security_login
+                check_path: security_login
                 default_target_path: /
                 use_referer: true
 #                csrf_token_generator: 'security.csrf.token_manager'

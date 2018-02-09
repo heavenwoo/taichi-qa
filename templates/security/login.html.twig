@@ -9,24 +9,24 @@
     <div class="container body-container my-4">
         <div class="card">
             <div class="card-body">
-                <form action="{{ path('user_login') }}" method="post">
+                <form action="{{ path('security_login') }}" method="post">
                     <div class="form-group">
-                        <label for="username">{{ 'user.username' | trans }}</label>
+                        <label for="username">{{ 'security.username' | trans }}</label>
                         <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
                     </div>
                     <div class="form-group">
 
-                        <label for="password">{{ 'user.password' | trans }}</label>
+                        <label for="password">{{ 'security.password' | trans }}</label>
                         <input class="form-control" type="password" id="password" name="_password">
                     </div>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         {#
-                            If you want to control the URL the user
+                            If you want to control the URL the security
                             is redirected to on success (more details below)
                             <input type="hidden" name="_target_path" value="/account" />
                         #}
 
-                        <button class="btn btn-primary" type="submit">{{ 'user.login' | trans }}</button>
+                        <button class="btn btn-primary" type="submit">{{ 'security.login' | trans }}</button>
                 </form>
             </div>
         </div>

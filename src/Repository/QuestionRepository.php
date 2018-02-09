@@ -3,6 +3,7 @@
 namespace Vega\Repository;
 
 use Doctrine\ORM\QueryBuilder;
+use Vega\Entity\Comment;
 use Vega\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;

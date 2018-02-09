@@ -1,5 +1,0 @@
-taichi_qa:
-    sitename: 'Taichi Question Answer System'
-    index:
-        question_nums: 10
-        tag_nums: 10

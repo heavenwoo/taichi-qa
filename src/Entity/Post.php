@@ -188,6 +188,7 @@ class Post extends Entity
     public function removeComment(Comment $comment): void
     {
         $this->comments->removeElement($comment);
+        $comment->setPost(null);
     }
 
     /**

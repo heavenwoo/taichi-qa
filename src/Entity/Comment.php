@@ -70,7 +70,7 @@ class Comment extends Entity
     /**
      * @return Question
      */
-    public function getQuestion(): Question
+    public function getQuestion()
     {
         return $this->question;
     }
@@ -86,7 +86,7 @@ class Comment extends Entity
     /**
      * @return Answer
      */
-    public function getAnswer(): Answer
+    public function getAnswer()
     {
         return $this->answer;
     }
@@ -102,15 +102,15 @@ class Comment extends Entity
     /**
      * @return Post
      */
-    public function getPost(): Post
+    public function getPost()
     {
         return $this->post;
     }
 
     /**
-     * @param mixed $post
+     * @param null|Post $post
      */
-    public function setPost($post): void
+    public function setPost(?Post $post): void
     {
         $this->post = $post;
     }

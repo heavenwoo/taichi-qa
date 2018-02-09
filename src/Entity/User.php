@@ -114,13 +114,13 @@ class User extends Entity implements UserInterface, \Serializable
     }
 
     /**
-     * Returns the roles or permissions granted to the user for security.
+     * Returns the roles or permissions granted to the security for security.
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
 
-        // guarantees that a user always has at least one role for security
+        // guarantees that a security always has at least one role for security
         if (empty($roles)) {
             $roles[] = 'ROLE_USER';
         }

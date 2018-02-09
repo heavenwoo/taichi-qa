@@ -6,6 +6,7 @@ use Vega\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Vega\Entity\Tag;
+use Vega\Entity\User;
 
 class PostRepository extends ServiceEntityRepository
 {
@@ -48,5 +49,13 @@ class PostRepository extends ServiceEntityRepository
             ->where('t = :tag')->setParameter('tag', $tag)
             ->orderBy('p.createdAt', 'DESC')
             ->getQuery();
+    }
+
+    public function findPostsByUser(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.user = :user')->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }

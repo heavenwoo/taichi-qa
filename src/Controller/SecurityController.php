@@ -7,25 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class UserController
+ * Class SecurityController
  *
- * @Route("/user")
+ * @Route("/security")
  *
  * @package Vega\Controller
  */
-class UserController extends Controller
+class SecurityController extends Controller
 {
     /**
-     * @Route("/", name="user")
-     */
-    public function index()
-    {
-        // replace this line with your own code!
-        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
-    }
-
-    /**
-     * @Route("/login", name="user_login")
+     * @Route("/login", name="security_login")
      *
      * @param AuthenticationUtils $helper
      * @return Response
@@ -34,7 +25,7 @@ class UserController extends Controller
     {
         $setting = $this->getSettings();
 
-        return $this->render("user/login.html.twig", [
+        return $this->render("security/login.html.twig", [
             'setting' => $setting,
             'last_username' => $helper->getLastUsername(),
             'error' => $helper->getLastAuthenticationError(),
@@ -42,7 +33,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/logout", name="user_logout")
+     * @Route("/logout", name="security_logout")
      */
     public function logout()
     {
