@@ -23,7 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class VegaUserDeleteCommand extends Command
 {
-    protected static $defaultName = 'vega:security-delete';
+    protected static $defaultName = 'vega:user-delete';
 
     /** @var SymfonyStyle */
     private $io;
@@ -31,7 +31,7 @@ class VegaUserDeleteCommand extends Command
     private $validator;
     private $users;
     private $questions;
-    private  $posts;
+    private $posts;
     private $answers;
     private $comments;
 
@@ -43,7 +43,7 @@ class VegaUserDeleteCommand extends Command
         AnswerRepository $answerRepository,
         CommentRepository $commentRepository,
         PostRepository $postRepository
-    ){
+    ) {
         parent::__construct();
 
         $this->entityManager = $em;
@@ -63,7 +63,8 @@ class VegaUserDeleteCommand extends Command
         $this
             ->setDescription('Deletes users from the database')
             ->addArgument('username', InputArgument::REQUIRED, 'The username of an existing security')
-            ->setHelp(<<<'HELP'
+            ->setHelp(
+                <<<'HELP'
 The <info>%command.name%</info> command deletes users from the database:
 
   <info>php %command.full_name%</info> <comment>username</comment>
@@ -110,7 +111,7 @@ HELP
         $username = $this->validator->validateUsername($input->getArgument('username'));
 
         /** @var User $user */
-        $user = $this->users->findOneByUsername($username);
+        $user = $this->users->findOneBy(['username' => $username]);
 
         if (null === $user) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
@@ -121,44 +122,47 @@ HELP
         // See http://docs.doctrine-project.org/en/latest/reference/working-with-objects.html#removing-entities
         $userId = $user->getId();
 
-        $comments = $this->comments->findCommentsByUser($user);
-        /** @var Comment $comment */
-        foreach ($comments as $comment) {
-            if (null != $comment->getQuestion()) {
-                /** @var Question $question */
-                $question = $this->questions->findOneBy(['id' => $comment->getQuestion()->getId()]);
-                $question->removeComment($comment);
-            } elseif (null != $comment->getAnswer()) {
-                /** @var Answer $answer */
-                $answer = $this->answers->findOneBy(['id' => $comment->getAnswer()->getId()]);
-                $answer->removeComment($comment);
-            } elseif (null != $comment->getPost()) {
-                /** @var Post $post */
-                $post = $this->posts->findOneBy(['id' => $comment->getPost()->getId()]);
-                $post->removeComment($comment);
-            }
-            
-            $this->entityManager->remove($comment);
-        }
+//        $comments = $this->comments->findCommentsByUser($user);
+//        /** @var Comment $comment */
+//        foreach ($comments as $comment) {
+//            if (null != $comment->getQuestion()) {
+//                /** @var Question $question */
+//                $question = $this->questions->findOneBy(['id' => $comment->getQuestion()->getId()]);
+//                $question->removeComment($comment);
+//            } elseif (null != $comment->getAnswer()) {
+//                /** @var Answer $answer */
+//                $answer = $this->answers->findOneBy(['id' => $comment->getAnswer()->getId()]);
+//                $answer->removeComment($comment);
+//            } elseif (null != $comment->getPost()) {
+//                /** @var Post $post */
+//                $post = $this->posts->findOneBy(['id' => $comment->getPost()->getId()]);
+//                $post->removeComment($comment);
+//            }
+//
+//            $this->entityManager->remove($comment);
+//        }
 
         $answers = $this->answers->findAnswersByUser($user);
         /** @var Answer $answer */
         foreach ($answers as $answer) {
-            /** @var Question $question */
-            $question = $this->questions->findOneBy(['id' => $answer->getQuestion()->getId()]);
-            $question->removeAnswer($answer);
+            $answer->getComments()->clear();
             $this->entityManager->remove($answer);
         }
 
         $questions = $this->questions->findQuestionsByUser($user);
         /** @var Question $question */
         foreach ($questions as $question) {
+            $question->getAnswers()->clear();
+            $question->getComments()->clear();
+            $question->getTags()->clear();
             $this->entityManager->remove($question);
         }
 
         $posts = $this->posts->findPostsByUser($user);
         /** @var Post $post */
         foreach ($posts as $post) {
+            $post->getTags()->clear();
+            $post->getComments()->clear();
             $this->entityManager->remove($post);
         }
         

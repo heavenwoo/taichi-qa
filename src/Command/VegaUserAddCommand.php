@@ -18,7 +18,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 
 class VegaUserAddCommand extends Command
 {
-    protected static $defaultName = 'vega:security-add';
+    protected static $defaultName = 'vega:user-add';
 
     /**
      * @var SymfonyStyle

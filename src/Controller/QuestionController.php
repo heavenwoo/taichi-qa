@@ -155,13 +155,27 @@ class QuestionController extends Controller
     }
 
     /**
-     * @Route("/{id}/delete", name="question_delete", requirements={"id": "\d+"})
-     * @Method("POST")
+     * @Route("/delete/{id}", name="question_delete", requirements={"id": "\d+"})
+     * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
+     * Security("is_granted('delete', question)")
      *
      * @param Question $question
      */
     public function delete(Request $request, Question $question)
     {
+        if (
+            $this->getUser()->getUsername() != $question->getUser()->getUsername() ||
+            $this->isGranted('ROLE_ADMIN')
+        ) {
+            $this->addFlash('error', 'question.no_permission_delete');
+
+            return $this->redirectToRoute('question_show', [
+                'id' => $question->getId(),
+                'slug' => $question->getSlug(),
+            ]);
+        }
+        
         $question->getTags()->clear();
         $question->getAnswers()->clear();
         $question->getComments()->clear();

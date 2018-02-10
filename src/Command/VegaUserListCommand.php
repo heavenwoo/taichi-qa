@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class VegaUserListCommand extends Command
 {
-    protected static $defaultName = 'vega:security-list';
+    protected static $defaultName = 'vega:user-list';
 
     private $mailer;
     private $emailSender;
@@ -33,7 +33,8 @@ class VegaUserListCommand extends Command
     {
         $this
             ->setDescription('Lists all the existing users')
-            ->setHelp(<<<'HELP'
+            ->setHelp(
+                <<<'HELP'
 The <info>%command.name%</info> command lists all the users registered in the application:
 
   <info>php %command.full_name%</info>
