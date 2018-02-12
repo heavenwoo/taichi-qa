@@ -99,6 +99,7 @@ class UserController extends Controller
     /**
      * @Route("/delete/{username}", name="user_delete")
      * @Method("GET")
+     * Security("is_granted('delete', user)")
      */
     public function delete(
         User $user,
@@ -108,15 +109,15 @@ class UserController extends Controller
     ) {
         $em = $this->getDoctrine()->getManager();
 
-        $questions = $questionRepository->findQuestionsByUser($user);
-        /** @var Question $question */
-        foreach ($questions as $question) {
+//        $questions = $questionRepository->findQuestionsByUser($user);
+//        /** @var Question $question */
+//        foreach ($questions as $question) {
 //            $question->getAnswers()->clear();
 //            $question->getComments()->clear();
 //            $question->getTags()->clear();
-            dump($question);
-            $em->remove($question);
-        }
+//            dump($question);
+//            $em->remove($question);
+//        }
 
         $answers = $answerRepository->findAnswersByUser($user);
         /** @var Answer $answer */
@@ -125,13 +126,13 @@ class UserController extends Controller
             $em->remove($answer);
         }
 
-        $posts = $postRepository->findPostsByUser($user);
-        /** @var Post $post */
-        foreach ($posts as $post) {
-            $post->getComments()->clear();
-            $post->getTags()->clear();
-            $em->remove($post);
-        }
+//        $posts = $postRepository->findPostsByUser($user);
+//        /** @var Post $post */
+//        foreach ($posts as $post) {
+//            $post->getComments()->clear();
+//            $post->getTags()->clear();
+//            $em->remove($post);
+//        }
 
         $em->flush();
     }

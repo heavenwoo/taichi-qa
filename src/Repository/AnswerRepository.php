@@ -31,6 +31,8 @@ class AnswerRepository extends ServiceEntityRepository
     public function findAnswersByUser(User $user)
     {
         return $this->createQueryBuilder('a')
+            ->select('a', 'c')
+            ->leftJoin('a.comments', 'c')
             ->where('a.user = :user')->setParameter('user', $user)
             ->getQuery()
             ->getResult();

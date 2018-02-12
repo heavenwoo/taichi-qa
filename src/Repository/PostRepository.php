@@ -54,6 +54,9 @@ class PostRepository extends ServiceEntityRepository
     public function findPostsByUser(User $user)
     {
         return $this->createQueryBuilder('p')
+            ->select('p', 't', 'c')
+            ->leftJoin('p.tags', 't')
+            ->leftJoin('p.comments', 'c')
             ->where('p.user = :user')->setParameter('user', $user)
             ->getQuery()
             ->getResult();

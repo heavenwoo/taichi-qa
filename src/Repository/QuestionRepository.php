@@ -89,6 +89,10 @@ class QuestionRepository extends ServiceEntityRepository
     public function findQuestionsByUser(User $user)
     {
         return $this->createQueryBuilder('q')
+            ->select('q', 'a', 't', 'c')
+            ->leftJoin('q.answers', 'a')
+            ->leftJoin('q.tags', 't')
+            ->leftJoin('q.comments', 'c')
             ->where('q.user = :user')->setParameter('user', $user)
             ->getQuery()
             ->getResult();
